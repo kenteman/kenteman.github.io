@@ -94,6 +94,17 @@ button:hover {
 }
 
 #score-display {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 0 0 10px 10px;
+  padding: 1em;
+  font-size: 1.3em;
+  color: #856404;
+  text-align: center;
+
   font-size: 1.3em;
   margin-bottom: 1.5em;
   padding: 1em;
@@ -110,6 +121,35 @@ button:hover {
 .incorrect {
   background-color: #f8d7da;
   border-color: #f5c6cb;
+}
+
+#score-display {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 0 0 10px 10px;
+  padding: 1em;
+  font-size: 1.3em;
+  color: #856404;
+  text-align: center;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 10px;
+  color: #856404;
+  font-size: 1.3em;
+  padding: 1em;
+  margin-bottom: 1.5em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin-top: 5em;
 }
 </style>
 <script>
@@ -157,11 +197,13 @@ function showAnswer(id) {
     scoreDiv.innerText = `正解数: ${current} / ${total}`;
     questionDiv.dataset.answered = "true";
 
-    // 自動スクロール（次の未回答の質問へ）
+    // 自動スクロール（オフセットを考慮して次の要素へ）
     setTimeout(() => {
       const next = questionDiv.nextElementSibling;
       if (next && next.classList.contains("question")) {
-        next.scrollIntoView({ behavior: "smooth", block: "start" });
+        const offset = 100; // スコア表示分のオフセット
+        const topPos = next.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: topPos, behavior: "smooth" });
       }
     }, 500);
   }
@@ -169,7 +211,6 @@ function showAnswer(id) {
 </script>
 </head>
 <body>
-<div id="score-display">正解数: 0 / 0</div><h1>Microsoft セキュリティ クイズ（翻訳対応・白文字＋英語キーワード）</h1>
 <div class="question">
 <h3>Q1. Conditional access policies always enforce the user of multi-factor authentication (MFA)</h3>
 <div class="choices">
