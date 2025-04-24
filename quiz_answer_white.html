@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8"/>
 <title>Microsoft セキュリティ クイズ（Answer:白文字誘導）</title>
 <style>
   body { font-family: sans-serif; margin: 2em; background: white; color: black; }
@@ -10,20 +11,42 @@
   .answer-hidden { color: white; font-size: 0.9em; margin-top: 0.5em; transition: color 0.3s ease; }
   .answer-hidden.show { color: green; }
 </style>
+
 <script>
 function showAnswer(id) {
-  document.getElementById(id).classList.add("show");
+  const answerElement = document.getElementById(id);
+  answerElement.classList.add("show");
+
+  const questionDiv = answerElement.closest(".question");
+  const correctAnswerText = answerElement.innerText.replace("Answer:", "").trim().replace(/\n/g, "").replace(/\./g, "").toLowerCase();
+
+  const inputs = questionDiv.querySelectorAll("input[type='radio'], input[type='checkbox']");
+  inputs.forEach(input => {
+    const label = input.closest("label");
+    if (!label) return;
+
+    const labelText = label.innerText.replace(/\./g, "").trim().toLowerCase();
+    if (input.checked) {
+      if (correctAnswerText.includes(labelText)) {
+        label.style.color = "green";
+      } else {
+        label.style.color = "red";
+      }
+    } else {
+      label.style.color = "";
+    }
+  });
 }
 </script>
+
 </head>
 <body>
 <h1>Microsoft セキュリティ クイズ（翻訳対応・白文字＋英語キーワード）</h1>
 <div class="question">
 <h3>Conditional access policies always enforce the user of multi-factor authentication (MFA)</h3>
 <div class="choices">
-<label><input type="radio" name="q0" id="q0_opt0"> Yes</label>
-<label><input type="radio" name="q0" id="q0_opt1"> No</label>
-
+<label><input id="q0_opt0" name="q0" type="radio"/> Yes</label>
+<label><input id="q0_opt1" name="q0" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer0')">答えを見る</button>
 <p class="answer-hidden" id="answer0"><strong>Answer:</strong> No</p>
@@ -31,9 +54,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Conditional access policies can be used to block access to an application based on the location of the user</h3>
 <div class="choices">
-<label><input type="radio" name="q1" id="q1_opt0"> Yes</label>
-<label><input type="radio" name="q1" id="q1_opt1"> No</label>
-
+<label><input id="q1_opt0" name="q1" type="radio"/> Yes</label>
+<label><input id="q1_opt1" name="q1" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer1')">答えを見る</button>
 <p class="answer-hidden" id="answer1"><strong>Answer:</strong> Yes</p>
@@ -41,9 +63,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Conditional access policies only affect users who have Azure Active Directory (Azure AD)-joined devices</h3>
 <div class="choices">
-<label><input type="radio" name="q2" id="q2_opt0"> Yes</label>
-<label><input type="radio" name="q2" id="q2_opt1"> No</label>
-
+<label><input id="q2_opt0" name="q2" type="radio"/> Yes</label>
+<label><input id="q2_opt1" name="q2" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer2')">答えを見る</button>
 <p class="answer-hidden" id="answer2"><strong>Answer:</strong> No</p>
@@ -51,11 +72,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] is used to identify, hold, and export electronic information that might be used in an investigation</h3>
 <div class="choices">
-<label><input type="radio" name="q3" id="q3_opt0"> Customer Lockbox</label>
-<label><input type="radio" name="q3" id="q3_opt1"> Data loss prevention (DLP)</label>
-<label><input type="radio" name="q3" id="q3_opt2"> eDiscovery</label>
-<label><input type="radio" name="q3" id="q3_opt3"> Resource lock</label>
-
+<label><input id="q3_opt0" name="q3" type="radio"/> Customer Lockbox</label>
+<label><input id="q3_opt1" name="q3" type="radio"/> Data loss prevention (DLP)</label>
+<label><input id="q3_opt2" name="q3" type="radio"/> eDiscovery</label>
+<label><input id="q3_opt3" name="q3" type="radio"/> Resource lock</label>
 </div>
 <button onclick="showAnswer('answer3')">答えを見る</button>
 <p class="answer-hidden" id="answer3"><strong>Answer:</strong> eDiscovery</p>
@@ -63,9 +83,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Defender for Endpoint can protect Android devices</h3>
 <div class="choices">
-<label><input type="radio" name="q4" id="q4_opt0"> Yes</label>
-<label><input type="radio" name="q4" id="q4_opt1"> No</label>
-
+<label><input id="q4_opt0" name="q4" type="radio"/> Yes</label>
+<label><input id="q4_opt1" name="q4" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer4')">答えを見る</button>
 <p class="answer-hidden" id="answer4"><strong>Answer:</strong> Yes</p>
@@ -73,9 +92,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Defender for Endpoint can protect Azure virtual machines that run Windows 10</h3>
 <div class="choices">
-<label><input type="radio" name="q5" id="q5_opt0"> Yes</label>
-<label><input type="radio" name="q5" id="q5_opt1"> No</label>
-
+<label><input id="q5_opt0" name="q5" type="radio"/> Yes</label>
+<label><input id="q5_opt1" name="q5" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer5')">答えを見る</button>
 <p class="answer-hidden" id="answer5"><strong>Answer:</strong> Yes</p>
@@ -83,9 +101,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Defender for Endpoint can protect Microsoft SharePoint Online sites and content from viruses</h3>
 <div class="choices">
-<label><input type="radio" name="q6" id="q6_opt0"> Yes</label>
-<label><input type="radio" name="q6" id="q6_opt1"> No</label>
-
+<label><input id="q6_opt0" name="q6" type="radio"/> Yes</label>
+<label><input id="q6_opt1" name="q6" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer6')">答えを見る</button>
 <p class="answer-hidden" id="answer6"><strong>Answer:</strong> No</p>
@@ -93,11 +110,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What feature in Microsoft Defender for Endpoint provides the first line of defense against cyberthreats by reducing the attack surface?</h3>
 <div class="choices">
-<label><input type="radio" name="q7" id="q7_opt0"> Automated remediation</label>
-<label><input type="radio" name="q7" id="q7_opt1"> Automated investigation</label>
-<label><input type="radio" name="q7" id="q7_opt2"> Advanced hunting</label>
-<label><input type="radio" name="q7" id="q7_opt3"> Network protection</label>
-
+<label><input id="q7_opt0" name="q7" type="radio"/> Automated remediation</label>
+<label><input id="q7_opt1" name="q7" type="radio"/> Automated investigation</label>
+<label><input id="q7_opt2" name="q7" type="radio"/> Advanced hunting</label>
+<label><input id="q7_opt3" name="q7" type="radio"/> Network protection</label>
 </div>
 <button onclick="showAnswer('answer7')">答えを見る</button>
 <p class="answer-hidden" id="answer7"><strong>Answer:</strong> Network protection</p>
@@ -105,11 +121,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which score measures an organization’s progress in completing actions that help reduce risks associated to data protection and regulatory standards?</h3>
 <div class="choices">
-<label><input type="radio" name="q8" id="q8_opt0"> Microsoft Secure Score</label>
-<label><input type="radio" name="q8" id="q8_opt1"> Productivity Score</label>
-<label><input type="radio" name="q8" id="q8_opt2"> Secure score in Azure Security Center</label>
-<label><input type="radio" name="q8" id="q8_opt3"> Compliance score</label>
-
+<label><input id="q8_opt0" name="q8" type="radio"/> Microsoft Secure Score</label>
+<label><input id="q8_opt1" name="q8" type="radio"/> Productivity Score</label>
+<label><input id="q8_opt2" name="q8" type="radio"/> Secure score in Azure Security Center</label>
+<label><input id="q8_opt3" name="q8" type="radio"/> Compliance score</label>
 </div>
 <button onclick="showAnswer('answer8')">答えを見る</button>
 <p class="answer-hidden" id="answer8"><strong>Answer:</strong> Compliance score</p>
@@ -117,9 +132,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can add a resource lock to an Azure subscription</h3>
 <div class="choices">
-<label><input type="radio" name="q9" id="q9_opt0"> Yes</label>
-<label><input type="radio" name="q9" id="q9_opt1"> No</label>
-
+<label><input id="q9_opt0" name="q9" type="radio"/> Yes</label>
+<label><input id="q9_opt1" name="q9" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer9')">答えを見る</button>
 <p class="answer-hidden" id="answer9"><strong>Answer:</strong> Yes</p>
@@ -127,9 +141,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can add only one resource lock to an Azure resource</h3>
 <div class="choices">
-<label><input type="radio" name="q10" id="q10_opt0"> Yes</label>
-<label><input type="radio" name="q10" id="q10_opt1"> No</label>
-
+<label><input id="q10_opt0" name="q10" type="radio"/> Yes</label>
+<label><input id="q10_opt1" name="q10" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer10')">答えを見る</button>
 <p class="answer-hidden" id="answer10"><strong>Answer:</strong> No</p>
@@ -137,9 +150,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can delete a resource group containing resources that have resources locks</h3>
 <div class="choices">
-<label><input type="radio" name="q11" id="q11_opt0"> Yes</label>
-<label><input type="radio" name="q11" id="q11_opt1"> No</label>
-
+<label><input id="q11_opt0" name="q11" type="radio"/> Yes</label>
+<label><input id="q11_opt1" name="q11" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer11')">答えを見る</button>
 <p class="answer-hidden" id="answer11"><strong>Answer:</strong> No</p>
@@ -147,9 +159,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Defender can detect vulnerabilities and threats for Azure Storage</h3>
 <div class="choices">
-<label><input type="radio" name="q12" id="q12_opt0"> Yes</label>
-<label><input type="radio" name="q12" id="q12_opt1"> No</label>
-
+<label><input id="q12_opt0" name="q12" type="radio"/> Yes</label>
+<label><input id="q12_opt1" name="q12" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer12')">答えを見る</button>
 <p class="answer-hidden" id="answer12"><strong>Answer:</strong> Yes</p>
@@ -157,9 +168,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Cloud Security Posture Management (CSPM) is available for all Azure subscriptions</h3>
 <div class="choices">
-<label><input type="radio" name="q13" id="q13_opt0"> Yes</label>
-<label><input type="radio" name="q13" id="q13_opt1"> No</label>
-
+<label><input id="q13_opt0" name="q13" type="radio"/> Yes</label>
+<label><input id="q13_opt1" name="q13" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer13')">答えを見る</button>
 <p class="answer-hidden" id="answer13"><strong>Answer:</strong> Yes</p>
@@ -167,9 +177,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Security Center can evaluate the security of workloads deployed to Azure or on-premises</h3>
 <div class="choices">
-<label><input type="radio" name="q14" id="q14_opt0"> Yes</label>
-<label><input type="radio" name="q14" id="q14_opt1"> No</label>
-
+<label><input id="q14_opt0" name="q14" type="radio"/> Yes</label>
+<label><input id="q14_opt1" name="q14" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer14')">答えを見る</button>
 <p class="answer-hidden" id="answer14"><strong>Answer:</strong> Yes</p>
@@ -177,11 +186,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>In the shared responsibility model for an Azure deployment, what is Microsoft solely responsible for managing?</h3>
 <div class="choices">
-<label><input type="radio" name="q15" id="q15_opt0"> The management of mobile devices</label>
-<label><input type="radio" name="q15" id="q15_opt1"> The permissions for the user data stored in Azure</label>
-<label><input type="radio" name="q15" id="q15_opt2"> The creation and management of user accounts</label>
-<label><input type="radio" name="q15" id="q15_opt3"> The management of the physical hardware</label>
-
+<label><input id="q15_opt0" name="q15" type="radio"/> The management of mobile devices</label>
+<label><input id="q15_opt1" name="q15" type="radio"/> The permissions for the user data stored in Azure</label>
+<label><input id="q15_opt2" name="q15" type="radio"/> The creation and management of user accounts</label>
+<label><input id="q15_opt3" name="q15" type="radio"/> The management of the physical hardware</label>
 </div>
 <button onclick="showAnswer('answer15')">答えを見る</button>
 <p class="answer-hidden" id="answer15"><strong>Answer:</strong> The management of the physical hardware</p>
@@ -189,11 +197,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which Microsoft 365 feature can you use to restrict communication and the sharing of information between members of two departments at your organization?</h3>
 <div class="choices">
-<label><input type="radio" name="q16" id="q16_opt0"> Sensitivity label policies</label>
-<label><input type="radio" name="q16" id="q16_opt1"> Customer Lockbox</label>
-<label><input type="radio" name="q16" id="q16_opt2"> Information Barriers</label>
-<label><input type="radio" name="q16" id="q16_opt3"> Privileged Access Management (PAM)</label>
-
+<label><input id="q16_opt0" name="q16" type="radio"/> Sensitivity label policies</label>
+<label><input id="q16_opt1" name="q16" type="radio"/> Customer Lockbox</label>
+<label><input id="q16_opt2" name="q16" type="radio"/> Information Barriers</label>
+<label><input id="q16_opt3" name="q16" type="radio"/> Privileged Access Management (PAM)</label>
 </div>
 <button onclick="showAnswer('answer16')">答えを見る</button>
 <p class="answer-hidden" id="answer16"><strong>Answer:</strong> Information Barriers</p>
@@ -201,11 +208,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can use [...] in the Microsoft 365 security center to identify devices that are affected by an alert</h3>
 <div class="choices">
-<label><input type="radio" name="q17" id="q17_opt0"> classifications</label>
-<label><input type="radio" name="q17" id="q17_opt1"> incidents</label>
-<label><input type="radio" name="q17" id="q17_opt2"> policies</label>
-<label><input type="radio" name="q17" id="q17_opt3"> secure score</label>
-
+<label><input id="q17_opt0" name="q17" type="radio"/> classifications</label>
+<label><input id="q17_opt1" name="q17" type="radio"/> incidents</label>
+<label><input id="q17_opt2" name="q17" type="radio"/> policies</label>
+<label><input id="q17_opt3" name="q17" type="radio"/> secure score</label>
 </div>
 <button onclick="showAnswer('answer17')">答えを見る</button>
 <p class="answer-hidden" id="answer17"><strong>Answer:</strong> incidents</p>
@@ -213,11 +219,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>When users sign in to the Azure portal, they are first [...]</h3>
 <div class="choices">
-<label><input type="radio" name="q18" id="q18_opt0"> assigned permissions</label>
-<label><input type="radio" name="q18" id="q18_opt1"> authenticated</label>
-<label><input type="radio" name="q18" id="q18_opt2"> authorized</label>
-<label><input type="radio" name="q18" id="q18_opt3"> resolved</label>
-
+<label><input id="q18_opt0" name="q18" type="radio"/> assigned permissions</label>
+<label><input id="q18_opt1" name="q18" type="radio"/> authenticated</label>
+<label><input id="q18_opt2" name="q18" type="radio"/> authorized</label>
+<label><input id="q18_opt3" name="q18" type="radio"/> resolved</label>
 </div>
 <button onclick="showAnswer('answer18')">答えを見る</button>
 <p class="answer-hidden" id="answer18"><strong>Answer:</strong> authenticated</p>
@@ -225,11 +230,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>You plan to implement a security strategy and place multiple layers of defense throughout a network infrastructure. Which security methodology does this represent?</h3>
 <div class="choices">
-<label><input type="radio" name="q19" id="q19_opt0"> Threat modeling</label>
-<label><input type="radio" name="q19" id="q19_opt1"> Identity as the security perimeter</label>
-<label><input type="radio" name="q19" id="q19_opt2"> Defense in depth</label>
-<label><input type="radio" name="q19" id="q19_opt3"> The shared responsibility model</label>
-
+<label><input id="q19_opt0" name="q19" type="radio"/> Threat modeling</label>
+<label><input id="q19_opt1" name="q19" type="radio"/> Identity as the security perimeter</label>
+<label><input id="q19_opt2" name="q19" type="radio"/> Defense in depth</label>
+<label><input id="q19_opt3" name="q19" type="radio"/> The shared responsibility model</label>
 </div>
 <button onclick="showAnswer('answer19')">答えを見る</button>
 <p class="answer-hidden" id="answer19"><strong>Answer:</strong> Defense in depth</p>
@@ -237,11 +241,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Compliance Manager assesses compliance data [...] for an organization</h3>
 <div class="choices">
-<label><input type="radio" name="q20" id="q20_opt0"> continually</label>
-<label><input type="radio" name="q20" id="q20_opt1"> monthly</label>
-<label><input type="radio" name="q20" id="q20_opt2"> on-demand</label>
-<label><input type="radio" name="q20" id="q20_opt3"> quarterly</label>
-
+<label><input id="q20_opt0" name="q20" type="radio"/> continually</label>
+<label><input id="q20_opt1" name="q20" type="radio"/> monthly</label>
+<label><input id="q20_opt2" name="q20" type="radio"/> on-demand</label>
+<label><input id="q20_opt3" name="q20" type="radio"/> quarterly</label>
 </div>
 <button onclick="showAnswer('answer20')">答えを見る</button>
 <p class="answer-hidden" id="answer20"><strong>Answer:</strong> continually</p>
@@ -249,11 +252,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What should you use in the Microsoft 365 security center to view security trends and track the protection status of identities?</h3>
 <div class="choices">
-<label><input type="radio" name="q21" id="q21_opt0"> Attack simulator</label>
-<label><input type="radio" name="q21" id="q21_opt1"> Reports</label>
-<label><input type="radio" name="q21" id="q21_opt2"> Hunting</label>
-<label><input type="radio" name="q21" id="q21_opt3"> Incidents</label>
-
+<label><input id="q21_opt0" name="q21" type="radio"/> Attack simulator</label>
+<label><input id="q21_opt1" name="q21" type="radio"/> Reports</label>
+<label><input id="q21_opt2" name="q21" type="radio"/> Hunting</label>
+<label><input id="q21_opt3" name="q21" type="radio"/> Incidents</label>
 </div>
 <button onclick="showAnswer('answer21')">答えを見る</button>
 <p class="answer-hidden" id="answer21"><strong>Answer:</strong> Reports</p>
@@ -261,9 +263,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Digitally signing a document requires a private key</h3>
 <div class="choices">
-<label><input type="radio" name="q22" id="q22_opt0"> Yes</label>
-<label><input type="radio" name="q22" id="q22_opt1"> No</label>
-
+<label><input id="q22_opt0" name="q22" type="radio"/> Yes</label>
+<label><input id="q22_opt1" name="q22" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer22')">答えを見る</button>
 <p class="answer-hidden" id="answer22"><strong>Answer:</strong> Yes</p>
@@ -271,9 +272,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Verifying the authenticity of a digitally signed document requires the public key of the signer</h3>
 <div class="choices">
-<label><input type="radio" name="q23" id="q23_opt0"> Yes</label>
-<label><input type="radio" name="q23" id="q23_opt1"> No</label>
-
+<label><input id="q23_opt0" name="q23" type="radio"/> Yes</label>
+<label><input id="q23_opt1" name="q23" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer23')">答えを見る</button>
 <p class="answer-hidden" id="answer23"><strong>Answer:</strong> Yes</p>
@@ -281,9 +281,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Verifying the authenticity of a digitally signed document requires the private key of the signer</h3>
 <div class="choices">
-<label><input type="radio" name="q24" id="q24_opt0"> Yes</label>
-<label><input type="radio" name="q24" id="q24_opt1"> No</label>
-
+<label><input id="q24_opt0" name="q24" type="radio"/> Yes</label>
+<label><input id="q24_opt1" name="q24" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer24')">答えを見る</button>
 <p class="answer-hidden" id="answer24"><strong>Answer:</strong> No</p>
@@ -291,24 +290,22 @@ function showAnswer(id) {
 <div class="question">
 <h3>In the Microsoft Cloud Adoption Framework for Azure, which two phases are addressed before the Ready phase?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q25" id="q25_opt0"> Plan</label>
-<label><input type="checkbox" name="q25" id="q25_opt1"> Manage</label>
-<label><input type="checkbox" name="q25" id="q25_opt2"> Adopt</label>
-<label><input type="checkbox" name="q25" id="q25_opt3"> Govern</label>
-<label><input type="checkbox" name="q25" id="q25_opt4"> Define Strategy</label>
-
+<label><input id="q25_opt0" name="q25" type="checkbox"/> Plan</label>
+<label><input id="q25_opt1" name="q25" type="checkbox"/> Manage</label>
+<label><input id="q25_opt2" name="q25" type="checkbox"/> Adopt</label>
+<label><input id="q25_opt3" name="q25" type="checkbox"/> Govern</label>
+<label><input id="q25_opt4" name="q25" type="checkbox"/> Define Strategy</label>
 </div>
 <button onclick="showAnswer('answer25')">答えを見る</button>
-<p class="answer-hidden" id="answer25"><strong>Answer:</strong> Plan.; Define Strategy</p>
+<p class="answer-hidden" id="answer25"><strong>Answer:<br/>Plan.<br/>Define Strategy</strong></p>
 </div>
 <div class="question">
 <h3>What can you use to provide a user with a two-hour window to complete an administrative task in Azure?</h3>
 <div class="choices">
-<label><input type="radio" name="q26" id="q26_opt0"> Azure Active Directory (Azure AD) Privileged Identity Management (PIM)</label>
-<label><input type="radio" name="q26" id="q26_opt1"> Azure Multi-Factor Authentication (MFA)</label>
-<label><input type="radio" name="q26" id="q26_opt2"> Azure Active Directory (Azure AD) Identity Protection</label>
-<label><input type="radio" name="q26" id="q26_opt3"> conditional access policies</label>
-
+<label><input id="q26_opt0" name="q26" type="radio"/> Azure Active Directory (Azure AD) Privileged Identity Management (PIM)</label>
+<label><input id="q26_opt1" name="q26" type="radio"/> Azure Multi-Factor Authentication (MFA)</label>
+<label><input id="q26_opt2" name="q26" type="radio"/> Azure Active Directory (Azure AD) Identity Protection</label>
+<label><input id="q26_opt3" name="q26" type="radio"/> conditional access policies</label>
 </div>
 <button onclick="showAnswer('answer26')">答えを見る</button>
 <p class="answer-hidden" id="answer26"><strong>Answer:</strong> Azure Active Directory (Azure AD) Privileged Identity Management (PIM)</p>
@@ -316,9 +313,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Applying system updates increases an organization's secure score in Azure Security Center</h3>
 <div class="choices">
-<label><input type="radio" name="q27" id="q27_opt0"> Yes</label>
-<label><input type="radio" name="q27" id="q27_opt1"> No</label>
-
+<label><input id="q27_opt0" name="q27" type="radio"/> Yes</label>
+<label><input id="q27_opt1" name="q27" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer27')">答えを見る</button>
 <p class="answer-hidden" id="answer27"><strong>Answer:</strong> Yes</p>
@@ -326,9 +322,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>The secure score in Azure Security Center can evaluate resources across multiple Azure subscriptions</h3>
 <div class="choices">
-<label><input type="radio" name="q28" id="q28_opt0"> Yes</label>
-<label><input type="radio" name="q28" id="q28_opt1"> No</label>
-
+<label><input id="q28_opt0" name="q28" type="radio"/> Yes</label>
+<label><input id="q28_opt1" name="q28" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer28')">答えを見る</button>
 <p class="answer-hidden" id="answer28"><strong>Answer:</strong> Yes</p>
@@ -336,9 +331,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Enabling multi-factor authentication (MFA) increases an organization's secure score in Azure Security Center</h3>
 <div class="choices">
-<label><input type="radio" name="q29" id="q29_opt0"> Yes</label>
-<label><input type="radio" name="q29" id="q29_opt1"> No</label>
-
+<label><input id="q29_opt0" name="q29" type="radio"/> Yes</label>
+<label><input id="q29_opt1" name="q29" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer29')">答えを見る</button>
 <p class="answer-hidden" id="answer29"><strong>Answer:</strong> Yes</p>
@@ -346,11 +340,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] enables collaboration with business partners from external organizations such as suppliers, partners, and vendors. External users appear as guest in the directory</h3>
 <div class="choices">
-<label><input type="radio" name="q30" id="q30_opt0"> Active Directory Domain Services (AD DS)</label>
-<label><input type="radio" name="q30" id="q30_opt1"> Active Directory forest trust</label>
-<label><input type="radio" name="q30" id="q30_opt2"> Azure Active Directory (Azure AD) business-to-business (B2B)</label>
-<label><input type="radio" name="q30" id="q30_opt3"> Azure Active Directory business-to-consumer B2C (Azure AD B2C)</label>
-
+<label><input id="q30_opt0" name="q30" type="radio"/> Active Directory Domain Services (AD DS)</label>
+<label><input id="q30_opt1" name="q30" type="radio"/> Active Directory forest trust</label>
+<label><input id="q30_opt2" name="q30" type="radio"/> Azure Active Directory (Azure AD) business-to-business (B2B)</label>
+<label><input id="q30_opt3" name="q30" type="radio"/> Azure Active Directory business-to-consumer B2C (Azure AD B2C)</label>
 </div>
 <button onclick="showAnswer('answer30')">答えを見る</button>
 <p class="answer-hidden" id="answer30"><strong>Answer:</strong> Azure Active Directory (Azure AD) business-to-business (B2B)</p>
@@ -358,11 +351,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which Microsoft portal provides information about how Microsoft manages privacy, compliance, and security?</h3>
 <div class="choices">
-<label><input type="radio" name="q31" id="q31_opt0"> Microsoft Service Trust Portal</label>
-<label><input type="radio" name="q31" id="q31_opt1"> Compliance Manager</label>
-<label><input type="radio" name="q31" id="q31_opt2"> Microsoft 365 Compliance Center</label>
-<label><input type="radio" name="q31" id="q31_opt3"> Microsoft Support</label>
-
+<label><input id="q31_opt0" name="q31" type="radio"/> Microsoft Service Trust Portal</label>
+<label><input id="q31_opt1" name="q31" type="radio"/> Compliance Manager</label>
+<label><input id="q31_opt2" name="q31" type="radio"/> Microsoft 365 Compliance Center</label>
+<label><input id="q31_opt3" name="q31" type="radio"/> Microsoft Support</label>
 </div>
 <button onclick="showAnswer('answer31')">答えを見る</button>
 <p class="answer-hidden" id="answer31"><strong>Answer:</strong> Microsoft Service Trust Portal</p>
@@ -370,11 +362,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What can you use to scan email attachments and forward the attachments to recipients only if the attachments are free from malware?</h3>
 <div class="choices">
-<label><input type="radio" name="q32" id="q32_opt0"> Microsoft Defender for Office 365</label>
-<label><input type="radio" name="q32" id="q32_opt1"> Microsoft Defender Antivirus</label>
-<label><input type="radio" name="q32" id="q32_opt2"> Microsoft Defender for Identity</label>
-<label><input type="radio" name="q32" id="q32_opt3"> Microsoft Defender for Endpoint</label>
-
+<label><input id="q32_opt0" name="q32" type="radio"/> Microsoft Defender for Office 365</label>
+<label><input id="q32_opt1" name="q32" type="radio"/> Microsoft Defender Antivirus</label>
+<label><input id="q32_opt2" name="q32" type="radio"/> Microsoft Defender for Identity</label>
+<label><input id="q32_opt3" name="q32" type="radio"/> Microsoft Defender for Endpoint</label>
 </div>
 <button onclick="showAnswer('answer32')">答えを見る</button>
 <p class="answer-hidden" id="answer32"><strong>Answer:</strong> Microsoft Defender for Office 365</p>
@@ -382,11 +373,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What is the purpose of Azure Active Directory (Azure AD) Password Protection?</h3>
 <div class="choices">
-<label><input type="radio" name="q33" id="q33_opt0"> To control how often users must change their passwords</label>
-<label><input type="radio" name="q33" id="q33_opt1"> To identify devices to which users can sign in without using multi-factor authentication (MFA)</label>
-<label><input type="radio" name="q33" id="q33_opt2"> To encrypt a password by using globally recognized encryption standards</label>
-<label><input type="radio" name="q33" id="q33_opt3"> To prevent users from using specific words in their passwords</label>
-
+<label><input id="q33_opt0" name="q33" type="radio"/> To control how often users must change their passwords</label>
+<label><input id="q33_opt1" name="q33" type="radio"/> To identify devices to which users can sign in without using multi-factor authentication (MFA)</label>
+<label><input id="q33_opt2" name="q33" type="radio"/> To encrypt a password by using globally recognized encryption standards</label>
+<label><input id="q33_opt3" name="q33" type="radio"/> To prevent users from using specific words in their passwords</label>
 </div>
 <button onclick="showAnswer('answer33')">答えを見る</button>
 <p class="answer-hidden" id="answer33"><strong>Answer:</strong> To prevent users from using specific words in their passwords</p>
@@ -394,9 +384,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Network security groups (NSGs) can deny inbound traffic from the internet</h3>
 <div class="choices">
-<label><input type="radio" name="q34" id="q34_opt0"> Yes</label>
-<label><input type="radio" name="q34" id="q34_opt1"> No</label>
-
+<label><input id="q34_opt0" name="q34" type="radio"/> Yes</label>
+<label><input id="q34_opt1" name="q34" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer34')">答えを見る</button>
 <p class="answer-hidden" id="answer34"><strong>Answer:</strong> Yes</p>
@@ -404,9 +393,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Network security groups (NSGs) can deny outbound traffic to the internet</h3>
 <div class="choices">
-<label><input type="radio" name="q35" id="q35_opt0"> Yes</label>
-<label><input type="radio" name="q35" id="q35_opt1"> No</label>
-
+<label><input id="q35_opt0" name="q35" type="radio"/> Yes</label>
+<label><input id="q35_opt1" name="q35" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer35')">答えを見る</button>
 <p class="answer-hidden" id="answer35"><strong>Answer:</strong> Yes</p>
@@ -414,9 +402,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Network security groups (NSGs) can filter traffic based on IP address, protocol, and port</h3>
 <div class="choices">
-<label><input type="radio" name="q36" id="q36_opt0"> Yes</label>
-<label><input type="radio" name="q36" id="q36_opt1"> No</label>
-
+<label><input id="q36_opt0" name="q36" type="radio"/> Yes</label>
+<label><input id="q36_opt1" name="q36" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer36')">答えを見る</button>
 <p class="answer-hidden" id="answer36"><strong>Answer:</strong> Yes</p>
@@ -424,11 +411,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What is an example of encryption at rest?</h3>
 <div class="choices">
-<label><input type="radio" name="q37" id="q37_opt0"> Encrypting communications by using a site-to-site VPN</label>
-<label><input type="radio" name="q37" id="q37_opt1"> Encrypting a virtual machine disk</label>
-<label><input type="radio" name="q37" id="q37_opt2"> Accessing a website by using an encrypted HTTPS connection</label>
-<label><input type="radio" name="q37" id="q37_opt3"> Sending an encrypted email</label>
-
+<label><input id="q37_opt0" name="q37" type="radio"/> Encrypting communications by using a site-to-site VPN</label>
+<label><input id="q37_opt1" name="q37" type="radio"/> Encrypting a virtual machine disk</label>
+<label><input id="q37_opt2" name="q37" type="radio"/> Accessing a website by using an encrypted HTTPS connection</label>
+<label><input id="q37_opt3" name="q37" type="radio"/> Sending an encrypted email</label>
 </div>
 <button onclick="showAnswer('answer37')">答えを見る</button>
 <p class="answer-hidden" id="answer37"><strong>Answer:</strong> Encrypting a virtual machine disk</p>
@@ -436,11 +422,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure DDoS Protection Standard can be used to protect [...]</h3>
 <div class="choices">
-<label><input type="radio" name="q38" id="q38_opt0"> Azure Active Directory (Azure AD) applications</label>
-<label><input type="radio" name="q38" id="q38_opt1"> Azure Active Directory (Azure AD) users</label>
-<label><input type="radio" name="q38" id="q38_opt2"> resource groups</label>
-<label><input type="radio" name="q38" id="q38_opt3"> virtual networks</label>
-
+<label><input id="q38_opt0" name="q38" type="radio"/> Azure Active Directory (Azure AD) applications</label>
+<label><input id="q38_opt1" name="q38" type="radio"/> Azure Active Directory (Azure AD) users</label>
+<label><input id="q38_opt2" name="q38" type="radio"/> resource groups</label>
+<label><input id="q38_opt3" name="q38" type="radio"/> virtual networks</label>
 </div>
 <button onclick="showAnswer('answer38')">答えを見る</button>
 <p class="answer-hidden" id="answer38"><strong>Answer:</strong> virtual networks</p>
@@ -448,24 +433,22 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which three authentication methods can be used by Azure Multi-Factor Authentication (MFA)?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q39" id="q39_opt0"> Text message (SMS)</label>
-<label><input type="checkbox" name="q39" id="q39_opt1"> Microsoft Authenticator app</label>
-<label><input type="checkbox" name="q39" id="q39_opt2"> Email verification</label>
-<label><input type="checkbox" name="q39" id="q39_opt3"> Phone call</label>
-<label><input type="checkbox" name="q39" id="q39_opt4"> Security question</label>
-
+<label><input id="q39_opt0" name="q39" type="checkbox"/> Text message (SMS)</label>
+<label><input id="q39_opt1" name="q39" type="checkbox"/> Microsoft Authenticator app</label>
+<label><input id="q39_opt2" name="q39" type="checkbox"/> Email verification</label>
+<label><input id="q39_opt3" name="q39" type="checkbox"/> Phone call</label>
+<label><input id="q39_opt4" name="q39" type="checkbox"/> Security question</label>
 </div>
 <button onclick="showAnswer('answer39')">答えを見る</button>
-<p class="answer-hidden" id="answer39"><strong>Answer:</strong> Text message (SMS).; Microsoft Authenticator app.; Phone call</p>
+<p class="answer-hidden" id="answer39"><strong>Answer:<br/>Text message (SMS).<br/>Microsoft Authenticator app.<br/>Phone call</strong></p>
 </div>
 <div class="question">
 <h3>Which Microsoft 365 Compliance Center feature can you use to identify all the documents on a Microsoft SharePoint Online site that contain a specific key word?</h3>
 <div class="choices">
-<label><input type="radio" name="q40" id="q40_opt0"> Audit</label>
-<label><input type="radio" name="q40" id="q40_opt1"> Compliance Manager</label>
-<label><input type="radio" name="q40" id="q40_opt2"> Content Search</label>
-<label><input type="radio" name="q40" id="q40_opt3"> Alerts</label>
-
+<label><input id="q40_opt0" name="q40" type="radio"/> Audit</label>
+<label><input id="q40_opt1" name="q40" type="radio"/> Compliance Manager</label>
+<label><input id="q40_opt2" name="q40" type="radio"/> Content Search</label>
+<label><input id="q40_opt3" name="q40" type="radio"/> Alerts</label>
 </div>
 <button onclick="showAnswer('answer40')">答えを見る</button>
 <p class="answer-hidden" id="answer40"><strong>Answer:</strong> Content Search</p>
@@ -473,9 +456,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can use the insider risk management solution to detect phising scams</h3>
 <div class="choices">
-<label><input type="radio" name="q41" id="q41_opt0"> Yes</label>
-<label><input type="radio" name="q41" id="q41_opt1"> No</label>
-
+<label><input id="q41_opt0" name="q41" type="radio"/> Yes</label>
+<label><input id="q41_opt1" name="q41" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer41')">答えを見る</button>
 <p class="answer-hidden" id="answer41"><strong>Answer:</strong> No</p>
@@ -483,9 +465,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can access the insider risk management solution from the Microsoft 365 Compliance Center</h3>
 <div class="choices">
-<label><input type="radio" name="q42" id="q42_opt0"> Yes</label>
-<label><input type="radio" name="q42" id="q42_opt1"> No</label>
-
+<label><input id="q42_opt0" name="q42" type="radio"/> Yes</label>
+<label><input id="q42_opt1" name="q42" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer42')">答えを見る</button>
 <p class="answer-hidden" id="answer42"><strong>Answer:</strong> Yes</p>
@@ -493,9 +474,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can use the insider risk management solution to detect data leaks by unhappy employees</h3>
 <div class="choices">
-<label><input type="radio" name="q43" id="q43_opt0"> Yes</label>
-<label><input type="radio" name="q43" id="q43_opt1"> No</label>
-
+<label><input id="q43_opt0" name="q43" type="radio"/> Yes</label>
+<label><input id="q43_opt1" name="q43" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer43')">答えを見る</button>
 <p class="answer-hidden" id="answer43"><strong>Answer:</strong> Yes</p>
@@ -503,21 +483,19 @@ function showAnswer(id) {
 <div class="question">
 <h3>What are two capabilities of Microsoft Defender for Endpoint?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q44" id="q44_opt0"> Automated investigation and remediation</label>
-<label><input type="checkbox" name="q44" id="q44_opt1"> Transport encryption</label>
-<label><input type="checkbox" name="q44" id="q44_opt2"> Shadow IT detection</label>
-<label><input type="checkbox" name="q44" id="q44_opt3"> Attack surface reduction</label>
-
+<label><input id="q44_opt0" name="q44" type="checkbox"/> Automated investigation and remediation</label>
+<label><input id="q44_opt1" name="q44" type="checkbox"/> Transport encryption</label>
+<label><input id="q44_opt2" name="q44" type="checkbox"/> Shadow IT detection</label>
+<label><input id="q44_opt3" name="q44" type="checkbox"/> Attack surface reduction</label>
 </div>
 <button onclick="showAnswer('answer44')">答えを見る</button>
-<p class="answer-hidden" id="answer44"><strong>Answer:</strong> Automated investigation and remediation.; Attack surface reduction</p>
+<p class="answer-hidden" id="answer44"><strong>Answer:<br/>Automated investigation and remediation.<br/>Attack surface reduction</strong></p>
 </div>
 <div class="question">
 <h3>Microsoft Intune can be used to manage Android devices</h3>
 <div class="choices">
-<label><input type="radio" name="q45" id="q45_opt0"> Yes</label>
-<label><input type="radio" name="q45" id="q45_opt1"> No</label>
-
+<label><input id="q45_opt0" name="q45" type="radio"/> Yes</label>
+<label><input id="q45_opt1" name="q45" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer45')">答えを見る</button>
 <p class="answer-hidden" id="answer45"><strong>Answer:</strong> Yes</p>
@@ -525,9 +503,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Intune can be used to provision Azure subscriptions</h3>
 <div class="choices">
-<label><input type="radio" name="q46" id="q46_opt0"> Yes</label>
-<label><input type="radio" name="q46" id="q46_opt1"> No</label>
-
+<label><input id="q46_opt0" name="q46" type="radio"/> Yes</label>
+<label><input id="q46_opt1" name="q46" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer46')">答えを見る</button>
 <p class="answer-hidden" id="answer46"><strong>Answer:</strong> No</p>
@@ -535,9 +512,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Intune can be used to manage organization-owned devices and personal devices</h3>
 <div class="choices">
-<label><input type="radio" name="q47" id="q47_opt0"> Yes</label>
-<label><input type="radio" name="q47" id="q47_opt1"> No</label>
-
+<label><input id="q47_opt0" name="q47" type="radio"/> Yes</label>
+<label><input id="q47_opt1" name="q47" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer47')">答えを見る</button>
 <p class="answer-hidden" id="answer47"><strong>Answer:</strong> Yes</p>
@@ -545,9 +521,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Compliance Manager tracks only customer-managed controls</h3>
 <div class="choices">
-<label><input type="radio" name="q48" id="q48_opt0"> Yes</label>
-<label><input type="radio" name="q48" id="q48_opt1"> No</label>
-
+<label><input id="q48_opt0" name="q48" type="radio"/> Yes</label>
+<label><input id="q48_opt1" name="q48" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer48')">答えを見る</button>
 <p class="answer-hidden" id="answer48"><strong>Answer:</strong> No</p>
@@ -555,9 +530,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Compliance Manager provides predefined templates for creating assessments</h3>
 <div class="choices">
-<label><input type="radio" name="q49" id="q49_opt0"> Yes</label>
-<label><input type="radio" name="q49" id="q49_opt1"> No</label>
-
+<label><input id="q49_opt0" name="q49" type="radio"/> Yes</label>
+<label><input id="q49_opt1" name="q49" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer49')">答えを見る</button>
 <p class="answer-hidden" id="answer49"><strong>Answer:</strong> Yes</p>
@@ -565,9 +539,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Compliance Manager can help you asses whether data adheres to specific data protection standards</h3>
 <div class="choices">
-<label><input type="radio" name="q50" id="q50_opt0"> Yes</label>
-<label><input type="radio" name="q50" id="q50_opt1"> No</label>
-
+<label><input id="q50_opt0" name="q50" type="radio"/> Yes</label>
+<label><input id="q50_opt1" name="q50" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer50')">答えを見る</button>
 <p class="answer-hidden" id="answer50"><strong>Answer:</strong> Yes</p>
@@ -575,23 +548,21 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which two tasks can you implement by using data loss prevention (DLP) policies in Microsoft 365?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q51" id="q51_opt0"> Display policy tips to users who are about to violate your organization’s policies</label>
-<label><input type="checkbox" name="q51" id="q51_opt1"> Enable disk encryption on endpoints</label>
-<label><input type="checkbox" name="q51" id="q51_opt2"> Protect documents in Microsoft OneDrive that contain sensitive information</label>
-<label><input type="checkbox" name="q51" id="q51_opt3"> Apply security baselines to devices</label>
-
+<label><input id="q51_opt0" name="q51" type="checkbox"/> Display policy tips to users who are about to violate your organization’s policies</label>
+<label><input id="q51_opt1" name="q51" type="checkbox"/> Enable disk encryption on endpoints</label>
+<label><input id="q51_opt2" name="q51" type="checkbox"/> Protect documents in Microsoft OneDrive that contain sensitive information</label>
+<label><input id="q51_opt3" name="q51" type="checkbox"/> Apply security baselines to devices</label>
 </div>
 <button onclick="showAnswer('answer51')">答えを見る</button>
-<p class="answer-hidden" id="answer51"><strong>Answer:</strong> Display policy tips to users who are about to violate your organization’s policies.; Protect documents in Microsoft OneDrive that contain sensitive information</p>
+<p class="answer-hidden" id="answer51"><strong>Answer:<br/>Display policy tips to users who are about to violate your organization’s policies.<br/>Protect documents in Microsoft OneDrive that contain sensitive information</strong></p>
 </div>
 <div class="question">
 <h3>[...] requires additional verification, such as a verification code sent to a mobile phone</h3>
 <div class="choices">
-<label><input type="radio" name="q52" id="q52_opt0"> Multi-factor authentication (MFA)</label>
-<label><input type="radio" name="q52" id="q52_opt1"> Pass-through authentication</label>
-<label><input type="radio" name="q52" id="q52_opt2"> Password writeback</label>
-<label><input type="radio" name="q52" id="q52_opt3"> Single sign-on (SSO)</label>
-
+<label><input id="q52_opt0" name="q52" type="radio"/> Multi-factor authentication (MFA)</label>
+<label><input id="q52_opt1" name="q52" type="radio"/> Pass-through authentication</label>
+<label><input id="q52_opt2" name="q52" type="radio"/> Password writeback</label>
+<label><input id="q52_opt3" name="q52" type="radio"/> Single sign-on (SSO)</label>
 </div>
 <button onclick="showAnswer('answer52')">答えを見る</button>
 <p class="answer-hidden" id="answer52"><strong>Answer:</strong> Multi-factor authentication (MFA)</p>
@@ -599,9 +570,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>With Advanced Audit in Microsoft 365, you can identify when email items were accessed</h3>
 <div class="choices">
-<label><input type="radio" name="q53" id="q53_opt0"> Yes</label>
-<label><input type="radio" name="q53" id="q53_opt1"> No</label>
-
+<label><input id="q53_opt0" name="q53" type="radio"/> Yes</label>
+<label><input id="q53_opt1" name="q53" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer53')">答えを見る</button>
 <p class="answer-hidden" id="answer53"><strong>Answer:</strong> Yes</p>
@@ -609,9 +579,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Advenced Audit in Microsoft 365 supports the same retention period of audit logs as core auditing</h3>
 <div class="choices">
-<label><input type="radio" name="q54" id="q54_opt0"> Yes</label>
-<label><input type="radio" name="q54" id="q54_opt1"> No</label>
-
+<label><input id="q54_opt0" name="q54" type="radio"/> Yes</label>
+<label><input id="q54_opt1" name="q54" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer54')">答えを見る</button>
 <p class="answer-hidden" id="answer54"><strong>Answer:</strong> No</p>
@@ -619,9 +588,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Advanced Audit in Microsoft 365 allocates customer-dedicated bandwidth for accessing audit data</h3>
 <div class="choices">
-<label><input type="radio" name="q55" id="q55_opt0"> Yes</label>
-<label><input type="radio" name="q55" id="q55_opt1"> No</label>
-
+<label><input id="q55_opt0" name="q55" type="radio"/> Yes</label>
+<label><input id="q55_opt1" name="q55" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer55')">答えを見る</button>
 <p class="answer-hidden" id="answer55"><strong>Answer:</strong> Yes</p>
@@ -629,11 +597,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] provides a central location for managing information protection, information governance, and data loss prevention (DLP) policies</h3>
 <div class="choices">
-<label><input type="radio" name="q56" id="q56_opt0"> Azure Defender</label>
-<label><input type="radio" name="q56" id="q56_opt1"> Microsoft Purview compliance portal</label>
-<label><input type="radio" name="q56" id="q56_opt2"> The Microsoft 365 security center</label>
-<label><input type="radio" name="q56" id="q56_opt3"> Microsoft Endpoint Manager</label>
-
+<label><input id="q56_opt0" name="q56" type="radio"/> Azure Defender</label>
+<label><input id="q56_opt1" name="q56" type="radio"/> Microsoft Purview compliance portal</label>
+<label><input id="q56_opt2" name="q56" type="radio"/> The Microsoft 365 security center</label>
+<label><input id="q56_opt3" name="q56" type="radio"/> Microsoft Endpoint Manager</label>
 </div>
 <button onclick="showAnswer('answer56')">答えを見る</button>
 <p class="answer-hidden" id="answer56"><strong>Answer:</strong> Microsoft Purview compliance portal</p>
@@ -641,11 +608,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which Microsoft 365 compliance feature can you use to encrypt content automatically based on specific conditions?</h3>
 <div class="choices">
-<label><input type="radio" name="q57" id="q57_opt0"> Content Search</label>
-<label><input type="radio" name="q57" id="q57_opt1"> Sensitivity labels</label>
-<label><input type="radio" name="q57" id="q57_opt2"> Retention policies</label>
-<label><input type="radio" name="q57" id="q57_opt3"> eDiscovery</label>
-
+<label><input id="q57_opt0" name="q57" type="radio"/> Content Search</label>
+<label><input id="q57_opt1" name="q57" type="radio"/> Sensitivity labels</label>
+<label><input id="q57_opt2" name="q57" type="radio"/> Retention policies</label>
+<label><input id="q57_opt3" name="q57" type="radio"/> eDiscovery</label>
 </div>
 <button onclick="showAnswer('answer57')">答えを見る</button>
 <p class="answer-hidden" id="answer57"><strong>Answer:</strong> Sensitivity labels</p>
@@ -653,11 +619,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>In Azure Sentinel, you can automate common tasks by using [...]</h3>
 <div class="choices">
-<label><input type="radio" name="q58" id="q58_opt0"> deep investigation tools</label>
-<label><input type="radio" name="q58" id="q58_opt1"> hunting search-and-query tools</label>
-<label><input type="radio" name="q58" id="q58_opt2"> playbooks</label>
-<label><input type="radio" name="q58" id="q58_opt3"> workbooks</label>
-
+<label><input id="q58_opt0" name="q58" type="radio"/> deep investigation tools</label>
+<label><input id="q58_opt1" name="q58" type="radio"/> hunting search-and-query tools</label>
+<label><input id="q58_opt2" name="q58" type="radio"/> playbooks</label>
+<label><input id="q58_opt3" name="q58" type="radio"/> workbooks</label>
 </div>
 <button onclick="showAnswer('answer58')">答えを見る</button>
 <p class="answer-hidden" id="answer58"><strong>Answer:</strong> playbooks</p>
@@ -665,9 +630,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>All Azure active Directory (Azure AD) license editions include the same features</h3>
 <div class="choices">
-<label><input type="radio" name="q59" id="q59_opt0"> Yes</label>
-<label><input type="radio" name="q59" id="q59_opt1"> No</label>
-
+<label><input id="q59_opt0" name="q59" type="radio"/> Yes</label>
+<label><input id="q59_opt1" name="q59" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer59')">答えを見る</button>
 <p class="answer-hidden" id="answer59"><strong>Answer:</strong> No</p>
@@ -675,9 +639,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can manage an Azure Active Directory (Azure AD) tenant by using the Azure portal</h3>
 <div class="choices">
-<label><input type="radio" name="q60" id="q60_opt0"> Yes</label>
-<label><input type="radio" name="q60" id="q60_opt1"> No</label>
-
+<label><input id="q60_opt0" name="q60" type="radio"/> Yes</label>
+<label><input id="q60_opt1" name="q60" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer60')">答えを見る</button>
 <p class="answer-hidden" id="answer60"><strong>Answer:</strong> Yes</p>
@@ -685,9 +648,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You must deploy Azure virtual machines to host an Azure Active Directory (Azure AD) tenant</h3>
 <div class="choices">
-<label><input type="radio" name="q61" id="q61_opt0"> Yes</label>
-<label><input type="radio" name="q61" id="q61_opt1"> No</label>
-
+<label><input id="q61_opt0" name="q61" type="radio"/> Yes</label>
+<label><input id="q61_opt1" name="q61" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer61')">答えを見る</button>
 <p class="answer-hidden" id="answer61"><strong>Answer:</strong> No</p>
@@ -695,11 +657,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Active Directory (Azure AD) is [...] used for authentication and authorization</h3>
 <div class="choices">
-<label><input type="radio" name="q62" id="q62_opt0"> an extended detection and response (XDR) system</label>
-<label><input type="radio" name="q62" id="q62_opt1"> an identity provider</label>
-<label><input type="radio" name="q62" id="q62_opt2"> a management group</label>
-<label><input type="radio" name="q62" id="q62_opt3"> a security information and event management (SIEM) system</label>
-
+<label><input id="q62_opt0" name="q62" type="radio"/> an extended detection and response (XDR) system</label>
+<label><input id="q62_opt1" name="q62" type="radio"/> an identity provider</label>
+<label><input id="q62_opt2" name="q62" type="radio"/> a management group</label>
+<label><input id="q62_opt3" name="q62" type="radio"/> a security information and event management (SIEM) system</label>
 </div>
 <button onclick="showAnswer('answer62')">答えを見る</button>
 <p class="answer-hidden" id="answer62"><strong>Answer:</strong> an identity provider</p>
@@ -707,11 +668,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] can be used to provide Microsoft Support Engineers with access to an organization's data stored in Microsoft Exchange Online, SharePoint Online, and OneDrive for Business</h3>
 <div class="choices">
-<label><input type="radio" name="q63" id="q63_opt0"> Customer Lockbox</label>
-<label><input type="radio" name="q63" id="q63_opt1"> Information barriers</label>
-<label><input type="radio" name="q63" id="q63_opt2"> Privileged Access Management (PAM)</label>
-<label><input type="radio" name="q63" id="q63_opt3"> Sensitivity labels</label>
-
+<label><input id="q63_opt0" name="q63" type="radio"/> Customer Lockbox</label>
+<label><input id="q63_opt1" name="q63" type="radio"/> Information barriers</label>
+<label><input id="q63_opt2" name="q63" type="radio"/> Privileged Access Management (PAM)</label>
+<label><input id="q63_opt3" name="q63" type="radio"/> Sensitivity labels</label>
 </div>
 <button onclick="showAnswer('answer63')">答えを見る</button>
 <p class="answer-hidden" id="answer63"><strong>Answer:</strong> Customer Lockbox</p>
@@ -719,11 +679,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What do you use to provide real-time integration between Azure Sentinel and another security source?</h3>
 <div class="choices">
-<label><input type="radio" name="q64" id="q64_opt0"> Azure AD Connect</label>
-<label><input type="radio" name="q64" id="q64_opt1"> Log Analytics workspace</label>
-<label><input type="radio" name="q64" id="q64_opt2"> Azure Information Protection</label>
-<label><input type="radio" name="q64" id="q64_opt3"> Data connector</label>
-
+<label><input id="q64_opt0" name="q64" type="radio"/> Azure AD Connect</label>
+<label><input id="q64_opt1" name="q64" type="radio"/> Log Analytics workspace</label>
+<label><input id="q64_opt2" name="q64" type="radio"/> Azure Information Protection</label>
+<label><input id="q64_opt3" name="q64" type="radio"/> Data connector</label>
 </div>
 <button onclick="showAnswer('answer64')">答えを見る</button>
 <p class="answer-hidden" id="answer64"><strong>Answer:</strong> Data connector</p>
@@ -731,9 +690,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can create custom roles in Azure Active Directory (Azure AD)</h3>
 <div class="choices">
-<label><input type="radio" name="q65" id="q65_opt0"> Yes</label>
-<label><input type="radio" name="q65" id="q65_opt1"> No</label>
-
+<label><input id="q65_opt0" name="q65" type="radio"/> Yes</label>
+<label><input id="q65_opt1" name="q65" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer65')">答えを見る</button>
 <p class="answer-hidden" id="answer65"><strong>Answer:</strong> Yes</p>
@@ -741,9 +699,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Global administrator is a role in Azure Active Directory (Azure AD)</h3>
 <div class="choices">
-<label><input type="radio" name="q66" id="q66_opt0"> Yes</label>
-<label><input type="radio" name="q66" id="q66_opt1"> No</label>
-
+<label><input id="q66_opt0" name="q66" type="radio"/> Yes</label>
+<label><input id="q66_opt1" name="q66" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer66')">答えを見る</button>
 <p class="answer-hidden" id="answer66"><strong>Answer:</strong> Yes</p>
@@ -751,9 +708,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>An Azure Active Directory (Azure AD) user can be assigned only one role</h3>
 <div class="choices">
-<label><input type="radio" name="q67" id="q67_opt0"> Yes</label>
-<label><input type="radio" name="q67" id="q67_opt1"> No</label>
-
+<label><input id="q67_opt0" name="q67" type="radio"/> Yes</label>
+<label><input id="q67_opt1" name="q67" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer67')">答えを見る</button>
 <p class="answer-hidden" id="answer67"><strong>Answer:</strong> No</p>
@@ -761,9 +717,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Active Directory (Azure AD) Identity Protection can add users to groups based on the users' risk level</h3>
 <div class="choices">
-<label><input type="radio" name="q68" id="q68_opt0"> Yes</label>
-<label><input type="radio" name="q68" id="q68_opt1"> No</label>
-
+<label><input id="q68_opt0" name="q68" type="radio"/> Yes</label>
+<label><input id="q68_opt1" name="q68" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer68')">答えを見る</button>
 <p class="answer-hidden" id="answer68"><strong>Answer:</strong> No</p>
@@ -771,9 +726,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Active Directory (Azure AD) Identity Protection can detect whether user credentials were leaked to the public</h3>
 <div class="choices">
-<label><input type="radio" name="q69" id="q69_opt0"> Yes</label>
-<label><input type="radio" name="q69" id="q69_opt1"> No</label>
-
+<label><input id="q69_opt0" name="q69" type="radio"/> Yes</label>
+<label><input id="q69_opt1" name="q69" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer69')">答えを見る</button>
 <p class="answer-hidden" id="answer69"><strong>Answer:</strong> Yes</p>
@@ -781,9 +735,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Active Directory (Azure AD) Identity Protection can be used to invoke Multi-Factor Authentication based on a user's risk level</h3>
 <div class="choices">
-<label><input type="radio" name="q70" id="q70_opt0"> Yes</label>
-<label><input type="radio" name="q70" id="q70_opt1"> No</label>
-
+<label><input id="q70_opt0" name="q70" type="radio"/> Yes</label>
+<label><input id="q70_opt1" name="q70" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer70')">答えを見る</button>
 <p class="answer-hidden" id="answer70"><strong>Answer:</strong> Yes</p>
@@ -791,11 +744,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which feature provides the extended detection and response (XDR) capability of Azure Sentinel?</h3>
 <div class="choices">
-<label><input type="radio" name="q71" id="q71_opt0"> Integration with the Microsoft 365 Compliance Center</label>
-<label><input type="radio" name="q71" id="q71_opt1"> Support for threat hunting</label>
-<label><input type="radio" name="q71" id="q71_opt2"> Integration with Microsoft 365 Defender</label>
-<label><input type="radio" name="q71" id="q71_opt3"> Support for Azure Monitor Workbooks</label>
-
+<label><input id="q71_opt0" name="q71" type="radio"/> Integration with the Microsoft 365 Compliance Center</label>
+<label><input id="q71_opt1" name="q71" type="radio"/> Support for threat hunting</label>
+<label><input id="q71_opt2" name="q71" type="radio"/> Integration with Microsoft 365 Defender</label>
+<label><input id="q71_opt3" name="q71" type="radio"/> Support for Azure Monitor Workbooks</label>
 </div>
 <button onclick="showAnswer('answer71')">答えを見る</button>
 <p class="answer-hidden" id="answer71"><strong>Answer:</strong> Integration with Microsoft 365 Defender</p>
@@ -803,11 +755,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which Azure Active Directory (Azure AD) feature can you use to provide just-in-time (JIT) access to manage Azure resources?</h3>
 <div class="choices">
-<label><input type="radio" name="q72" id="q72_opt0"> Conditional access policies</label>
-<label><input type="radio" name="q72" id="q72_opt1"> Azure AD Identity Protection</label>
-<label><input type="radio" name="q72" id="q72_opt2"> Azure AD Privileged Identity Management (PIM)</label>
-<label><input type="radio" name="q72" id="q72_opt3"> Authentication method policies</label>
-
+<label><input id="q72_opt0" name="q72" type="radio"/> Conditional access policies</label>
+<label><input id="q72_opt1" name="q72" type="radio"/> Azure AD Identity Protection</label>
+<label><input id="q72_opt2" name="q72" type="radio"/> Azure AD Privileged Identity Management (PIM)</label>
+<label><input id="q72_opt3" name="q72" type="radio"/> Authentication method policies</label>
 </div>
 <button onclick="showAnswer('answer72')">答えを見る</button>
 <p class="answer-hidden" id="answer72"><strong>Answer:</strong> Azure AD Privileged Identity Management (PIM)</p>
@@ -815,9 +766,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>In software as a service (SaaS), applying service packs to applications is the responsibility of the organization</h3>
 <div class="choices">
-<label><input type="radio" name="q73" id="q73_opt0"> Yes</label>
-<label><input type="radio" name="q73" id="q73_opt1"> No</label>
-
+<label><input id="q73_opt0" name="q73" type="radio"/> Yes</label>
+<label><input id="q73_opt1" name="q73" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer73')">答えを見る</button>
 <p class="answer-hidden" id="answer73"><strong>Answer:</strong> No</p>
@@ -825,9 +775,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>In infrastructure as a service (IaaS), managing the physical network is the responsibility of the cloud provider</h3>
 <div class="choices">
-<label><input type="radio" name="q74" id="q74_opt0"> Yes</label>
-<label><input type="radio" name="q74" id="q74_opt1"> No</label>
-
+<label><input id="q74_opt0" name="q74" type="radio"/> Yes</label>
+<label><input id="q74_opt1" name="q74" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer74')">答えを見る</button>
 <p class="answer-hidden" id="answer74"><strong>Answer:</strong> Yes</p>
@@ -835,9 +784,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>In all Azure Cloud deployment types, managing the security of information and data is the responsibility of the organization</h3>
 <div class="choices">
-<label><input type="radio" name="q75" id="q75_opt0"> Yes</label>
-<label><input type="radio" name="q75" id="q75_opt1"> No</label>
-
+<label><input id="q75_opt0" name="q75" type="radio"/> Yes</label>
+<label><input id="q75_opt1" name="q75" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer75')">答えを見る</button>
 <p class="answer-hidden" id="answer75"><strong>Answer:</strong> Yes</p>
@@ -845,11 +793,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Applications registered in Azure Active Directory (Azure AD) are associated automatically to a [...]</h3>
 <div class="choices">
-<label><input type="radio" name="q76" id="q76_opt0"> guest account</label>
-<label><input type="radio" name="q76" id="q76_opt1"> managed identity</label>
-<label><input type="radio" name="q76" id="q76_opt2"> service principal</label>
-<label><input type="radio" name="q76" id="q76_opt3"> user account</label>
-
+<label><input id="q76_opt0" name="q76" type="radio"/> guest account</label>
+<label><input id="q76_opt1" name="q76" type="radio"/> managed identity</label>
+<label><input id="q76_opt2" name="q76" type="radio"/> service principal</label>
+<label><input id="q76_opt3" name="q76" type="radio"/> user account</label>
 </div>
 <button onclick="showAnswer('answer76')">答えを見る</button>
 <p class="answer-hidden" id="answer76"><strong>Answer:</strong> service principal</p>
@@ -857,11 +804,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] is a cloud-native security information and event management (SIEM) and security orchestration automated response (SOAR) solution used to provide a single solution for alert detection, threat visibility, proactive hunting, and threat response</h3>
 <div class="choices">
-<label><input type="radio" name="q77" id="q77_opt0"> Azure Advisor</label>
-<label><input type="radio" name="q77" id="q77_opt1"> Azure Bastion</label>
-<label><input type="radio" name="q77" id="q77_opt2"> Azure Monitor</label>
-<label><input type="radio" name="q77" id="q77_opt3"> Azure Sentinel</label>
-
+<label><input id="q77_opt0" name="q77" type="radio"/> Azure Advisor</label>
+<label><input id="q77_opt1" name="q77" type="radio"/> Azure Bastion</label>
+<label><input id="q77_opt2" name="q77" type="radio"/> Azure Monitor</label>
+<label><input id="q77_opt3" name="q77" type="radio"/> Azure Sentinel</label>
 </div>
 <button onclick="showAnswer('answer77')">答えを見る</button>
 <p class="answer-hidden" id="answer77"><strong>Answer:</strong> Azure Sentinel</p>
@@ -869,11 +815,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] a file makes the data in the file readable and usable to viewers that have the appropriate key</h3>
 <div class="choices">
-<label><input type="radio" name="q78" id="q78_opt0"> Archiving</label>
-<label><input type="radio" name="q78" id="q78_opt1"> Compressing</label>
-<label><input type="radio" name="q78" id="q78_opt2"> Deduplicating</label>
-<label><input type="radio" name="q78" id="q78_opt3"> Encrypting</label>
-
+<label><input id="q78_opt0" name="q78" type="radio"/> Archiving</label>
+<label><input id="q78_opt1" name="q78" type="radio"/> Compressing</label>
+<label><input id="q78_opt2" name="q78" type="radio"/> Deduplicating</label>
+<label><input id="q78_opt3" name="q78" type="radio"/> Encrypting</label>
 </div>
 <button onclick="showAnswer('answer78')">答えを見る</button>
 <p class="answer-hidden" id="answer78"><strong>Answer:</strong> Encrypting</p>
@@ -881,9 +826,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Sensitivity labels can be used to encrypt documents</h3>
 <div class="choices">
-<label><input type="radio" name="q79" id="q79_opt0"> Yes</label>
-<label><input type="radio" name="q79" id="q79_opt1"> No</label>
-
+<label><input id="q79_opt0" name="q79" type="radio"/> Yes</label>
+<label><input id="q79_opt1" name="q79" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer79')">答えを見る</button>
 <p class="answer-hidden" id="answer79"><strong>Answer:</strong> Yes</p>
@@ -891,9 +835,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Sensitivity labels can add headers and footers to documents</h3>
 <div class="choices">
-<label><input type="radio" name="q80" id="q80_opt0"> Yes</label>
-<label><input type="radio" name="q80" id="q80_opt1"> No</label>
-
+<label><input id="q80_opt0" name="q80" type="radio"/> Yes</label>
+<label><input id="q80_opt1" name="q80" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer80')">答えを見る</button>
 <p class="answer-hidden" id="answer80"><strong>Answer:</strong> Yes</p>
@@ -901,9 +844,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Sensitivity labels can apply watermarks to emails</h3>
 <div class="choices">
-<label><input type="radio" name="q81" id="q81_opt0"> Yes</label>
-<label><input type="radio" name="q81" id="q81_opt1"> No</label>
-
+<label><input id="q81_opt0" name="q81" type="radio"/> Yes</label>
+<label><input id="q81_opt1" name="q81" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer81')">答えを見る</button>
 <p class="answer-hidden" id="answer81"><strong>Answer:</strong> Yes</p>
@@ -911,11 +853,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] is a cloud-based solution that leverages on-premises Active Directory signals to identify, detect, and investigate advanced threats</h3>
 <div class="choices">
-<label><input type="radio" name="q82" id="q82_opt0"> Microsoft Cloud App Security</label>
-<label><input type="radio" name="q82" id="q82_opt1"> Microsoft Defender for Endpoint</label>
-<label><input type="radio" name="q82" id="q82_opt2"> Microsoft Defender for Identity</label>
-<label><input type="radio" name="q82" id="q82_opt3"> Microsoft Defender for Office 365</label>
-
+<label><input id="q82_opt0" name="q82" type="radio"/> Microsoft Cloud App Security</label>
+<label><input id="q82_opt1" name="q82" type="radio"/> Microsoft Defender for Endpoint</label>
+<label><input id="q82_opt2" name="q82" type="radio"/> Microsoft Defender for Identity</label>
+<label><input id="q82_opt3" name="q82" type="radio"/> Microsoft Defender for Office 365</label>
 </div>
 <button onclick="showAnswer('answer82')">答えを見る</button>
 <p class="answer-hidden" id="answer82"><strong>Answer:</strong> Microsoft Defender for Identity</p>
@@ -923,9 +864,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Policy supports automatic remediation</h3>
 <div class="choices">
-<label><input type="radio" name="q83" id="q83_opt0"> Yes</label>
-<label><input type="radio" name="q83" id="q83_opt1"> No</label>
-
+<label><input id="q83_opt0" name="q83" type="radio"/> Yes</label>
+<label><input id="q83_opt1" name="q83" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer83')">答えを見る</button>
 <p class="answer-hidden" id="answer83"><strong>Answer:</strong> Yes</p>
@@ -933,9 +873,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Policy can be used to ensure that new resources adhere to corporate standards</h3>
 <div class="choices">
-<label><input type="radio" name="q84" id="q84_opt0"> Yes</label>
-<label><input type="radio" name="q84" id="q84_opt1"> No</label>
-
+<label><input id="q84_opt0" name="q84" type="radio"/> Yes</label>
+<label><input id="q84_opt1" name="q84" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer84')">答えを見る</button>
 <p class="answer-hidden" id="answer84"><strong>Answer:</strong> Yes</p>
@@ -943,9 +882,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Compliance evaluation in Azure Policy occurs only when a target resource is created or modified</h3>
 <div class="choices">
-<label><input type="radio" name="q85" id="q85_opt0"> Yes</label>
-<label><input type="radio" name="q85" id="q85_opt1"> No</label>
-
+<label><input id="q85_opt0" name="q85" type="radio"/> Yes</label>
+<label><input id="q85_opt1" name="q85" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer85')">答えを見る</button>
 <p class="answer-hidden" id="answer85"><strong>Answer:</strong> No</p>
@@ -953,11 +891,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Federation is used to establish [...] between organizations</h3>
 <div class="choices">
-<label><input type="radio" name="q86" id="q86_opt0"> multi-factor authentication (MFA)</label>
-<label><input type="radio" name="q86" id="q86_opt1"> a trust relationship</label>
-<label><input type="radio" name="q86" id="q86_opt2"> user account synchronization</label>
-<label><input type="radio" name="q86" id="q86_opt3"> a VPN connection</label>
-
+<label><input id="q86_opt0" name="q86" type="radio"/> multi-factor authentication (MFA)</label>
+<label><input id="q86_opt1" name="q86" type="radio"/> a trust relationship</label>
+<label><input id="q86_opt2" name="q86" type="radio"/> user account synchronization</label>
+<label><input id="q86_opt3" name="q86" type="radio"/> a VPN connection</label>
 </div>
 <button onclick="showAnswer('answer86')">答えを見る</button>
 <p class="answer-hidden" id="answer86"><strong>Answer:</strong> a trust relationship</p>
@@ -965,10 +902,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] provides Network Address Translation (NAT) services</h3>
 <div class="choices">
-<label><input type="radio" name="q87" id="q87_opt0"> Azure Bastion</label>
-<label><input type="radio" name="q87" id="q87_opt1"> Azure Firewall</label>
-<label><input type="radio" name="q87" id="q87_opt2"> Network Security Group (NSG)</label>
-
+<label><input id="q87_opt0" name="q87" type="radio"/> Azure Bastion</label>
+<label><input id="q87_opt1" name="q87" type="radio"/> Azure Firewall</label>
+<label><input id="q87_opt2" name="q87" type="radio"/> Network Security Group (NSG)</label>
 </div>
 <button onclick="showAnswer('answer87')">答えを見る</button>
 <p class="answer-hidden" id="answer87"><strong>Answer:</strong> Azure Firewall</p>
@@ -976,10 +912,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] provides secure and seamless Remote Desktop connectivity to Azure virtual machines</h3>
 <div class="choices">
-<label><input type="radio" name="q88" id="q88_opt0"> Azure Bastion</label>
-<label><input type="radio" name="q88" id="q88_opt1"> Azure Firewall</label>
-<label><input type="radio" name="q88" id="q88_opt2"> Network Security Group (NSG)</label>
-
+<label><input id="q88_opt0" name="q88" type="radio"/> Azure Bastion</label>
+<label><input id="q88_opt1" name="q88" type="radio"/> Azure Firewall</label>
+<label><input id="q88_opt2" name="q88" type="radio"/> Network Security Group (NSG)</label>
 </div>
 <button onclick="showAnswer('answer88')">答えを見る</button>
 <p class="answer-hidden" id="answer88"><strong>Answer:</strong> Azure Bastion</p>
@@ -987,10 +922,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] provides provides traffic filtering that can be applied to specific network interfaces on a virtual network</h3>
 <div class="choices">
-<label><input type="radio" name="q89" id="q89_opt0"> Azure Bastion</label>
-<label><input type="radio" name="q89" id="q89_opt1"> Azure Firewall</label>
-<label><input type="radio" name="q89" id="q89_opt2"> Network Security Group (NSG)</label>
-
+<label><input id="q89_opt0" name="q89" type="radio"/> Azure Bastion</label>
+<label><input id="q89_opt1" name="q89" type="radio"/> Azure Firewall</label>
+<label><input id="q89_opt2" name="q89" type="radio"/> Network Security Group (NSG)</label>
 </div>
 <button onclick="showAnswer('answer89')">答えを見る</button>
 <p class="answer-hidden" id="answer89"><strong>Answer:</strong> Network Security Group (NSG)</p>
@@ -998,9 +932,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Conditional access policies can use the device state as a signal</h3>
 <div class="choices">
-<label><input type="radio" name="q90" id="q90_opt0"> Yes</label>
-<label><input type="radio" name="q90" id="q90_opt1"> No</label>
-
+<label><input id="q90_opt0" name="q90" type="radio"/> Yes</label>
+<label><input id="q90_opt1" name="q90" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer90')">答えを見る</button>
 <p class="answer-hidden" id="answer90"><strong>Answer:</strong> Yes</p>
@@ -1008,9 +941,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Conditional access policies apply before first-factor authentication is complete</h3>
 <div class="choices">
-<label><input type="radio" name="q91" id="q91_opt0"> Yes</label>
-<label><input type="radio" name="q91" id="q91_opt1"> No</label>
-
+<label><input id="q91_opt0" name="q91" type="radio"/> Yes</label>
+<label><input id="q91_opt1" name="q91" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer91')">答えを見る</button>
 <p class="answer-hidden" id="answer91"><strong>Answer:</strong> No</p>
@@ -1018,9 +950,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Conditional access policies can trigger multi-factor authentication (MFA) if a user attempts to access a specific application</h3>
 <div class="choices">
-<label><input type="radio" name="q92" id="q92_opt0"> Yes</label>
-<label><input type="radio" name="q92" id="q92_opt1"> No</label>
-
+<label><input id="q92_opt0" name="q92" type="radio"/> Yes</label>
+<label><input id="q92_opt1" name="q92" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer92')">答えを見る</button>
 <p class="answer-hidden" id="answer92"><strong>Answer:</strong> Yes</p>
@@ -1028,9 +959,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure AD Identity Protection can add users to groups based on the users' risk level</h3>
 <div class="choices">
-<label><input type="radio" name="q93" id="q93_opt0"> Yes</label>
-<label><input type="radio" name="q93" id="q93_opt1"> No</label>
-
+<label><input id="q93_opt0" name="q93" type="radio"/> Yes</label>
+<label><input id="q93_opt1" name="q93" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer93')">答えを見る</button>
 <p class="answer-hidden" id="answer93"><strong>Answer:</strong> No</p>
@@ -1038,9 +968,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure AD Identity Protection can detect whether user credentials were leaked to the public</h3>
 <div class="choices">
-<label><input type="radio" name="q94" id="q94_opt0"> Yes</label>
-<label><input type="radio" name="q94" id="q94_opt1"> No</label>
-
+<label><input id="q94_opt0" name="q94" type="radio"/> Yes</label>
+<label><input id="q94_opt1" name="q94" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer94')">答えを見る</button>
 <p class="answer-hidden" id="answer94"><strong>Answer:</strong> Yes</p>
@@ -1048,9 +977,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure AD Identity Protection can be used to invoke Multi-Factor Authentication based on the users' risk level</h3>
 <div class="choices">
-<label><input type="radio" name="q95" id="q95_opt0"> Yes</label>
-<label><input type="radio" name="q95" id="q95_opt1"> No</label>
-
+<label><input id="q95_opt0" name="q95" type="radio"/> Yes</label>
+<label><input id="q95_opt1" name="q95" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer95')">答えを見る</button>
 <p class="answer-hidden" id="answer95"><strong>Answer:</strong> Yes</p>
@@ -1058,9 +986,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Security defaults require an Azure Active Directory (Azure AD) Premium license</h3>
 <div class="choices">
-<label><input type="radio" name="q96" id="q96_opt0"> Yes</label>
-<label><input type="radio" name="q96" id="q96_opt1"> No</label>
-
+<label><input id="q96_opt0" name="q96" type="radio"/> Yes</label>
+<label><input id="q96_opt1" name="q96" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer96')">答えを見る</button>
 <p class="answer-hidden" id="answer96"><strong>Answer:</strong> Yes</p>
@@ -1068,9 +995,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Security defaults can be enabled for a single Azure Active Directory (Azure AD) user</h3>
 <div class="choices">
-<label><input type="radio" name="q97" id="q97_opt0"> Yes</label>
-<label><input type="radio" name="q97" id="q97_opt1"> No</label>
-
+<label><input id="q97_opt0" name="q97" type="radio"/> Yes</label>
+<label><input id="q97_opt1" name="q97" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer97')">答えを見る</button>
 <p class="answer-hidden" id="answer97"><strong>Answer:</strong> No</p>
@@ -1078,9 +1004,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>When Security defaults are enabled, all administrators must use multi-factor authentication (MFA)</h3>
 <div class="choices">
-<label><input type="radio" name="q98" id="q98_opt0"> Yes</label>
-<label><input type="radio" name="q98" id="q98_opt1"> No</label>
-
+<label><input id="q98_opt0" name="q98" type="radio"/> Yes</label>
+<label><input id="q98_opt1" name="q98" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer98')">答えを見る</button>
 <p class="answer-hidden" id="answer98"><strong>Answer:</strong> Yes</p>
@@ -1088,9 +1013,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Control is a key privacy principle of Microsoft</h3>
 <div class="choices">
-<label><input type="radio" name="q99" id="q99_opt0"> Yes</label>
-<label><input type="radio" name="q99" id="q99_opt1"> No</label>
-
+<label><input id="q99_opt0" name="q99" type="radio"/> Yes</label>
+<label><input id="q99_opt1" name="q99" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer99')">答えを見る</button>
 <p class="answer-hidden" id="answer99"><strong>Answer:</strong> Yes</p>
@@ -1098,9 +1022,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Transparency is a key principle of Microsoft</h3>
 <div class="choices">
-<label><input type="radio" name="q100" id="q100_opt0"> Yes</label>
-<label><input type="radio" name="q100" id="q100_opt1"> No</label>
-
+<label><input id="q100_opt0" name="q100" type="radio"/> Yes</label>
+<label><input id="q100_opt1" name="q100" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer100')">答えを見る</button>
 <p class="answer-hidden" id="answer100"><strong>Answer:</strong> Yes</p>
@@ -1108,9 +1031,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Shared responsibility a key principle of Microsoft</h3>
 <div class="choices">
-<label><input type="radio" name="q101" id="q101_opt0"> Yes</label>
-<label><input type="radio" name="q101" id="q101_opt1"> No</label>
-
+<label><input id="q101_opt0" name="q101" type="radio"/> Yes</label>
+<label><input id="q101_opt1" name="q101" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer101')">答えを見る</button>
 <p class="answer-hidden" id="answer101"><strong>Answer:</strong> No</p>
@@ -1118,11 +1040,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What should you use to ensure that the members of an Azure Active Directory group use multi-factor authentication (MFA) when they sign in?</h3>
 <div class="choices">
-<label><input type="radio" name="q102" id="q102_opt0"> Azure Active Directory (Azure AD) Identity Protection</label>
-<label><input type="radio" name="q102" id="q102_opt1"> A conditional access policy</label>
-<label><input type="radio" name="q102" id="q102_opt2"> Azure role-based access control (Azure RBAC)</label>
-<label><input type="radio" name="q102" id="q102_opt3"> Azure Active Directory (Azure AD) Privileged Identity Management (PIM)</label>
-
+<label><input id="q102_opt0" name="q102" type="radio"/> Azure Active Directory (Azure AD) Identity Protection</label>
+<label><input id="q102_opt1" name="q102" type="radio"/> A conditional access policy</label>
+<label><input id="q102_opt2" name="q102" type="radio"/> Azure role-based access control (Azure RBAC)</label>
+<label><input id="q102_opt3" name="q102" type="radio"/> Azure Active Directory (Azure AD) Privileged Identity Management (PIM)</label>
 </div>
 <button onclick="showAnswer('answer102')">答えを見る</button>
 <p class="answer-hidden" id="answer102"><strong>Answer:</strong> A conditional access policy</p>
@@ -1130,9 +1051,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Defender for Cloud can detect vulnerabilities and threats for Azure Storage</h3>
 <div class="choices">
-<label><input type="radio" name="q103" id="q103_opt0"> Yes</label>
-<label><input type="radio" name="q103" id="q103_opt1"> No</label>
-
+<label><input id="q103_opt0" name="q103" type="radio"/> Yes</label>
+<label><input id="q103_opt1" name="q103" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer103')">答えを見る</button>
 <p class="answer-hidden" id="answer103"><strong>Answer:</strong> Yes</p>
@@ -1140,9 +1060,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Defender for Cloud can evaluate the security of workloads deployed to Azure or on-premises</h3>
 <div class="choices">
-<label><input type="radio" name="q104" id="q104_opt0"> Yes</label>
-<label><input type="radio" name="q104" id="q104_opt1"> No</label>
-
+<label><input id="q104_opt0" name="q104" type="radio"/> Yes</label>
+<label><input id="q104_opt1" name="q104" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer104')">答えを見る</button>
 <p class="answer-hidden" id="answer104"><strong>Answer:</strong> Yes</p>
@@ -1150,11 +1069,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] provides benchmark recommendations and guidance for protecting Azure services</h3>
 <div class="choices">
-<label><input type="radio" name="q105" id="q105_opt0"> Azure Application Insights</label>
-<label><input type="radio" name="q105" id="q105_opt1"> Azure Network Watcher</label>
-<label><input type="radio" name="q105" id="q105_opt2"> Log Analytics workspaces</label>
-<label><input type="radio" name="q105" id="q105_opt3"> Security baselines for Azure</label>
-
+<label><input id="q105_opt0" name="q105" type="radio"/> Azure Application Insights</label>
+<label><input id="q105_opt1" name="q105" type="radio"/> Azure Network Watcher</label>
+<label><input id="q105_opt2" name="q105" type="radio"/> Log Analytics workspaces</label>
+<label><input id="q105_opt3" name="q105" type="radio"/> Security baselines for Azure</label>
 </div>
 <button onclick="showAnswer('answer105')">答えを見る</button>
 <p class="answer-hidden" id="answer105"><strong>Answer:</strong> Security baselines for Azure</p>
@@ -1162,22 +1080,20 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which two Azure resources can a network security group (NSG) be associated with?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q106" id="q106_opt0"> Network interface</label>
-<label><input type="checkbox" name="q106" id="q106_opt1"> Azure App Service web app</label>
-<label><input type="checkbox" name="q106" id="q106_opt2"> Virtual network</label>
-<label><input type="checkbox" name="q106" id="q106_opt3"> Virtual network subnet</label>
-<label><input type="checkbox" name="q106" id="q106_opt4"> Resource group</label>
-
+<label><input id="q106_opt0" name="q106" type="checkbox"/> Network interface</label>
+<label><input id="q106_opt1" name="q106" type="checkbox"/> Azure App Service web app</label>
+<label><input id="q106_opt2" name="q106" type="checkbox"/> Virtual network</label>
+<label><input id="q106_opt3" name="q106" type="checkbox"/> Virtual network subnet</label>
+<label><input id="q106_opt4" name="q106" type="checkbox"/> Resource group</label>
 </div>
 <button onclick="showAnswer('answer106')">答えを見る</button>
-<p class="answer-hidden" id="answer106"><strong>Answer:</strong> Virtual network.; Resource group</p>
+<p class="answer-hidden" id="answer106"><strong>Answer:<br/>Virtual network.<br/>Resource group</strong></p>
 </div>
 <div class="question">
 <h3>Azure AD Connect can be used to implement hybrid identity</h3>
 <div class="choices">
-<label><input type="radio" name="q107" id="q107_opt0"> Yes</label>
-<label><input type="radio" name="q107" id="q107_opt1"> No</label>
-
+<label><input id="q107_opt0" name="q107" type="radio"/> Yes</label>
+<label><input id="q107_opt1" name="q107" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer107')">答えを見る</button>
 <p class="answer-hidden" id="answer107"><strong>Answer:</strong> Yes</p>
@@ -1185,9 +1101,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Hybrid identity requires the implementation of two Microsoft 365 tenants</h3>
 <div class="choices">
-<label><input type="radio" name="q108" id="q108_opt0"> Yes</label>
-<label><input type="radio" name="q108" id="q108_opt1"> No</label>
-
+<label><input id="q108_opt0" name="q108" type="radio"/> Yes</label>
+<label><input id="q108_opt1" name="q108" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer108')">答えを見る</button>
 <p class="answer-hidden" id="answer108"><strong>Answer:</strong> No</p>
@@ -1195,9 +1110,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Hybrid identity refers to the synchronization of Active Directory Domain Services (AD DS) and Azure Active Directory (Azure AD)</h3>
 <div class="choices">
-<label><input type="radio" name="q109" id="q109_opt0"> Yes</label>
-<label><input type="radio" name="q109" id="q109_opt1"> No</label>
-
+<label><input id="q109_opt0" name="q109" type="radio"/> Yes</label>
+<label><input id="q109_opt1" name="q109" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer109')">答えを見る</button>
 <p class="answer-hidden" id="answer109"><strong>Answer:</strong> Yes</p>
@@ -1205,10 +1119,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>Match the types of compliance score actions to the appropriate tasks. [...] Use encryption to protect data at rest</h3>
 <div class="choices">
-<label><input type="radio" name="q110" id="q110_opt0"> Corrective</label>
-<label><input type="radio" name="q110" id="q110_opt1"> Detective</label>
-<label><input type="radio" name="q110" id="q110_opt2"> Preventative</label>
-
+<label><input id="q110_opt0" name="q110" type="radio"/> Corrective</label>
+<label><input id="q110_opt1" name="q110" type="radio"/> Detective</label>
+<label><input id="q110_opt2" name="q110" type="radio"/> Preventative</label>
 </div>
 <button onclick="showAnswer('answer110')">答えを見る</button>
 <p class="answer-hidden" id="answer110"><strong>Answer:</strong> Preventative</p>
@@ -1216,10 +1129,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>Match the types of compliance score actions to the appropriate tasks. [...] Actively monitor systems to identify irregularities that might represent risks</h3>
 <div class="choices">
-<label><input type="radio" name="q111" id="q111_opt0"> Corrective</label>
-<label><input type="radio" name="q111" id="q111_opt1"> Detective</label>
-<label><input type="radio" name="q111" id="q111_opt2"> Preventative</label>
-
+<label><input id="q111_opt0" name="q111" type="radio"/> Corrective</label>
+<label><input id="q111_opt1" name="q111" type="radio"/> Detective</label>
+<label><input id="q111_opt2" name="q111" type="radio"/> Preventative</label>
 </div>
 <button onclick="showAnswer('answer111')">答えを見る</button>
 <p class="answer-hidden" id="answer111"><strong>Answer:</strong> Detective</p>
@@ -1227,9 +1139,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can use the insider risk management solution to detect phishing scams</h3>
 <div class="choices">
-<label><input type="radio" name="q112" id="q112_opt0"> Yes</label>
-<label><input type="radio" name="q112" id="q112_opt1"> No</label>
-
+<label><input id="q112_opt0" name="q112" type="radio"/> Yes</label>
+<label><input id="q112_opt1" name="q112" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer112')">答えを見る</button>
 <p class="answer-hidden" id="answer112"><strong>Answer:</strong> No</p>
@@ -1237,11 +1148,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>To which type of resource can Azure Bastion provide secure access?</h3>
 <div class="choices">
-<label><input type="radio" name="q113" id="q113_opt0"> Azure Files</label>
-<label><input type="radio" name="q113" id="q113_opt1"> Azure SQL Managed Instances</label>
-<label><input type="radio" name="q113" id="q113_opt2"> Azure virtual machines</label>
-<label><input type="radio" name="q113" id="q113_opt3"> Azure App Service</label>
-
+<label><input id="q113_opt0" name="q113" type="radio"/> Azure Files</label>
+<label><input id="q113_opt1" name="q113" type="radio"/> Azure SQL Managed Instances</label>
+<label><input id="q113_opt2" name="q113" type="radio"/> Azure virtual machines</label>
+<label><input id="q113_opt3" name="q113" type="radio"/> Azure App Service</label>
 </div>
 <button onclick="showAnswer('answer113')">答えを見る</button>
 <p class="answer-hidden" id="answer113"><strong>Answer:</strong> Azure virtual machines</p>
@@ -1249,9 +1159,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Conditional access policies always enforce the use of multi-factor authentication (MFA)</h3>
 <div class="choices">
-<label><input type="radio" name="q114" id="q114_opt0"> Yes</label>
-<label><input type="radio" name="q114" id="q114_opt1"> No</label>
-
+<label><input id="q114_opt0" name="q114" type="radio"/> Yes</label>
+<label><input id="q114_opt1" name="q114" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer114')">答えを見る</button>
 <p class="answer-hidden" id="answer114"><strong>Answer:</strong> No</p>
@@ -1259,11 +1168,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What can you protect by using the information protection solution in the Microsoft 365 Compliance Center?</h3>
 <div class="choices">
-<label><input type="radio" name="q115" id="q115_opt0"> Computers from zero-day exploits</label>
-<label><input type="radio" name="q115" id="q115_opt1"> Users from phishing attempts</label>
-<label><input type="radio" name="q115" id="q115_opt2"> Files from malware and viruses</label>
-<label><input type="radio" name="q115" id="q115_opt3"> Sensitive data from being exposed to unauthorized users</label>
-
+<label><input id="q115_opt0" name="q115" type="radio"/> Computers from zero-day exploits</label>
+<label><input id="q115_opt1" name="q115" type="radio"/> Users from phishing attempts</label>
+<label><input id="q115_opt2" name="q115" type="radio"/> Files from malware and viruses</label>
+<label><input id="q115_opt3" name="q115" type="radio"/> Sensitive data from being exposed to unauthorized users</label>
 </div>
 <button onclick="showAnswer('answer115')">答えを見る</button>
 <p class="answer-hidden" id="answer115"><strong>Answer:</strong> Sensitive data from being exposed to unauthorized users</p>
@@ -1271,11 +1179,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Sentinel [...] use Azure Logic Apps to automate and orchestrate responses to alerts</h3>
 <div class="choices">
-<label><input type="radio" name="q116" id="q116_opt0"> analytic rules</label>
-<label><input type="radio" name="q116" id="q116_opt1"> hunting queries</label>
-<label><input type="radio" name="q116" id="q116_opt2"> playbooks</label>
-<label><input type="radio" name="q116" id="q116_opt3"> workbooks</label>
-
+<label><input id="q116_opt0" name="q116" type="radio"/> analytic rules</label>
+<label><input id="q116_opt1" name="q116" type="radio"/> hunting queries</label>
+<label><input id="q116_opt2" name="q116" type="radio"/> playbooks</label>
+<label><input id="q116_opt3" name="q116" type="radio"/> workbooks</label>
 </div>
 <button onclick="showAnswer('answer116')">答えを見る</button>
 <p class="answer-hidden" id="answer116"><strong>Answer:</strong> playbooks</p>
@@ -1283,22 +1190,20 @@ function showAnswer(id) {
 <div class="question">
 <h3>What are three uses of Microsoft Cloud App Security?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q117" id="q117_opt0"> Discover and control the use of shadow IT</label>
-<label><input type="checkbox" name="q117" id="q117_opt1"> Provide secure connections to Azure virtual machines</label>
-<label><input type="checkbox" name="q117" id="q117_opt2"> Protect sensitive information hosted anywhere in the cloud</label>
-<label><input type="checkbox" name="q117" id="q117_opt3"> Provide pass-through authentication to on-premises applications</label>
-<label><input type="checkbox" name="q117" id="q117_opt4"> Prevent data leaks to noncompliant apps and limit access to regulated data</label>
-
+<label><input id="q117_opt0" name="q117" type="checkbox"/> Discover and control the use of shadow IT</label>
+<label><input id="q117_opt1" name="q117" type="checkbox"/> Provide secure connections to Azure virtual machines</label>
+<label><input id="q117_opt2" name="q117" type="checkbox"/> Protect sensitive information hosted anywhere in the cloud</label>
+<label><input id="q117_opt3" name="q117" type="checkbox"/> Provide pass-through authentication to on-premises applications</label>
+<label><input id="q117_opt4" name="q117" type="checkbox"/> Prevent data leaks to noncompliant apps and limit access to regulated data</label>
 </div>
 <button onclick="showAnswer('answer117')">答えを見る</button>
-<p class="answer-hidden" id="answer117"><strong>Answer:</strong> Discover and control the use of shadow IT.; Protect sensitive information hosted anywhere in the cloud.; Prevent data leaks to noncompliant apps and limit access to regulated data</p>
+<p class="answer-hidden" id="answer117"><strong>Answer:<br/>Discover and control the use of shadow IT.<br/>Protect sensitive information hosted anywhere in the cloud.<br/>Prevent data leaks to noncompliant apps and limit access to regulated data</strong></p>
 </div>
 <div class="question">
 <h3>Azure Active Directory (Azure AD) is deployed to an on premises environment</h3>
 <div class="choices">
-<label><input type="radio" name="q118" id="q118_opt0"> Yes</label>
-<label><input type="radio" name="q118" id="q118_opt1"> No</label>
-
+<label><input id="q118_opt0" name="q118" type="radio"/> Yes</label>
+<label><input id="q118_opt1" name="q118" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer118')">答えを見る</button>
 <p class="answer-hidden" id="answer118"><strong>Answer:</strong> No</p>
@@ -1306,9 +1211,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Active Directory (Azure AD) is provided as part of a Microsoft 365 subscription</h3>
 <div class="choices">
-<label><input type="radio" name="q119" id="q119_opt0"> Yes</label>
-<label><input type="radio" name="q119" id="q119_opt1"> No</label>
-
+<label><input id="q119_opt0" name="q119" type="radio"/> Yes</label>
+<label><input id="q119_opt1" name="q119" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer119')">答えを見る</button>
 <p class="answer-hidden" id="answer119"><strong>Answer:</strong> Yes</p>
@@ -1316,9 +1220,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Active Directory (Azure AD) is an identity and access management service</h3>
 <div class="choices">
-<label><input type="radio" name="q120" id="q120_opt0"> Yes</label>
-<label><input type="radio" name="q120" id="q120_opt1"> No</label>
-
+<label><input id="q120_opt0" name="q120" type="radio"/> Yes</label>
+<label><input id="q120_opt1" name="q120" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer120')">答えを見る</button>
 <p class="answer-hidden" id="answer120"><strong>Answer:</strong> Yes</p>
@@ -1326,53 +1229,49 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which service should you use to view your Azure secure score?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q121" id="q121_opt0"> Alerts</label>
-<label><input type="checkbox" name="q121" id="q121_opt1"> Application Insights</label>
-<label><input type="checkbox" name="q121" id="q121_opt2"> Policy</label>
-<label><input type="checkbox" name="q121" id="q121_opt3"> Azure AD Connect Health</label>
-<label><input type="checkbox" name="q121" id="q121_opt4"> Security Center (Microsoft Defender for Cloud)</label>
-<label><input type="checkbox" name="q121" id="q121_opt5"> Security Center</label>
-<label><input type="checkbox" name="q121" id="q121_opt6"> Advisor</label>
-<label><input type="checkbox" name="q121" id="q121_opt7"> Monitor</label>
-
+<label><input id="q121_opt0" name="q121" type="checkbox"/> Alerts</label>
+<label><input id="q121_opt1" name="q121" type="checkbox"/> Application Insights</label>
+<label><input id="q121_opt2" name="q121" type="checkbox"/> Policy</label>
+<label><input id="q121_opt3" name="q121" type="checkbox"/> Azure AD Connect Health</label>
+<label><input id="q121_opt4" name="q121" type="checkbox"/> Security Center (Microsoft Defender for Cloud)</label>
+<label><input id="q121_opt5" name="q121" type="checkbox"/> Security Center</label>
+<label><input id="q121_opt6" name="q121" type="checkbox"/> Advisor</label>
+<label><input id="q121_opt7" name="q121" type="checkbox"/> Monitor</label>
 </div>
 <button onclick="showAnswer('answer121')">答えを見る</button>
-<p class="answer-hidden" id="answer121"><strong>Answer:</strong> Security Center (Microsoft Defender for Cloud).; Security Center</p>
+<p class="answer-hidden" id="answer121"><strong>Answer:<br/>Security Center (Microsoft Defender for Cloud).<br/>Security Center</strong></p>
 </div>
 <div class="question">
 <h3>Which two types of resources can be protected by using Azure Firewall?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q122" id="q122_opt0"> Azure virtual machines</label>
-<label><input type="checkbox" name="q122" id="q122_opt1"> Azure Active Directory (Azure AD) users</label>
-<label><input type="checkbox" name="q122" id="q122_opt2"> Microsoft Exchange Online inboxes</label>
-<label><input type="checkbox" name="q122" id="q122_opt3"> Azure virtual networks</label>
-<label><input type="checkbox" name="q122" id="q122_opt4"> Microsoft SharePoint Online sites</label>
-
+<label><input id="q122_opt0" name="q122" type="checkbox"/> Azure virtual machines</label>
+<label><input id="q122_opt1" name="q122" type="checkbox"/> Azure Active Directory (Azure AD) users</label>
+<label><input id="q122_opt2" name="q122" type="checkbox"/> Microsoft Exchange Online inboxes</label>
+<label><input id="q122_opt3" name="q122" type="checkbox"/> Azure virtual networks</label>
+<label><input id="q122_opt4" name="q122" type="checkbox"/> Microsoft SharePoint Online sites</label>
 </div>
 <button onclick="showAnswer('answer122')">答えを見る</button>
-<p class="answer-hidden" id="answer122"><strong>Answer:</strong> Azure virtual machines.; Azure virtual networks</p>
+<p class="answer-hidden" id="answer122"><strong>Answer:<br/>Azure virtual machines.<br/>Azure virtual networks</strong></p>
 </div>
 <div class="question">
 <h3>What can you use to provide threat detection for Azure SQL Managed Instance?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q123" id="q123_opt0"> Microsoft Secure Score</label>
-<label><input type="checkbox" name="q123" id="q123_opt1"> Application security groups</label>
-<label><input type="checkbox" name="q123" id="q123_opt2"> Microsoft Defender for Cloud</label>
-<label><input type="checkbox" name="q123" id="q123_opt3"> Azure Defender</label>
-<label><input type="checkbox" name="q123" id="q123_opt4"> Azure Bastion</label>
-
+<label><input id="q123_opt0" name="q123" type="checkbox"/> Microsoft Secure Score</label>
+<label><input id="q123_opt1" name="q123" type="checkbox"/> Application security groups</label>
+<label><input id="q123_opt2" name="q123" type="checkbox"/> Microsoft Defender for Cloud</label>
+<label><input id="q123_opt3" name="q123" type="checkbox"/> Azure Defender</label>
+<label><input id="q123_opt4" name="q123" type="checkbox"/> Azure Bastion</label>
 </div>
 <button onclick="showAnswer('answer123')">答えを見る</button>
-<p class="answer-hidden" id="answer123"><strong>Answer:</strong> Microsoft Defender for Cloud.; Azure Defender</p>
+<p class="answer-hidden" id="answer123"><strong>Answer:<br/>Microsoft Defender for Cloud.<br/>Azure Defender</strong></p>
 </div>
 <div class="question">
 <h3>[...] can use conditional access policies to control sessions in real time</h3>
 <div class="choices">
-<label><input type="radio" name="q124" id="q124_opt0"> Azure Active Directory (Azure AD) Privileged Identity Management (PIM)</label>
-<label><input type="radio" name="q124" id="q124_opt1"> Microsoft Defender for Cloud</label>
-<label><input type="radio" name="q124" id="q124_opt2"> Microsoft Sentinel</label>
-<label><input type="radio" name="q124" id="q124_opt3"> Microsoft Defender for Cloud Apps</label>
-
+<label><input id="q124_opt0" name="q124" type="radio"/> Azure Active Directory (Azure AD) Privileged Identity Management (PIM)</label>
+<label><input id="q124_opt1" name="q124" type="radio"/> Microsoft Defender for Cloud</label>
+<label><input id="q124_opt2" name="q124" type="radio"/> Microsoft Sentinel</label>
+<label><input id="q124_opt3" name="q124" type="radio"/> Microsoft Defender for Cloud Apps</label>
 </div>
 <button onclick="showAnswer('answer124')">答えを見る</button>
 <p class="answer-hidden" id="answer124"><strong>Answer:</strong> Microsoft Defender for Cloud Apps</p>
@@ -1380,10 +1279,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>Compliance Manager can be directly accessed from the [...]</h3>
 <div class="choices">
-<label><input type="radio" name="q125" id="q125_opt0"> Microsoft 365 admin center</label>
-<label><input type="radio" name="q125" id="q125_opt1"> Microsoft 365 Defender portal</label>
-<label><input type="radio" name="q125" id="q125_opt2"> Microsoft 365 Purview</label>
-
+<label><input id="q125_opt0" name="q125" type="radio"/> Microsoft 365 admin center</label>
+<label><input id="q125_opt1" name="q125" type="radio"/> Microsoft 365 Defender portal</label>
+<label><input id="q125_opt2" name="q125" type="radio"/> Microsoft 365 Purview</label>
 </div>
 <button onclick="showAnswer('answer125')">答えを見る</button>
 <p class="answer-hidden" id="answer125"><strong>Answer:</strong> Microsoft 365 Purview</p>
@@ -1391,11 +1289,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Compliance Manager can be directly accessed from the [...]</h3>
 <div class="choices">
-<label><input type="radio" name="q126" id="q126_opt0"> Microsoft 365 admin center</label>
-<label><input type="radio" name="q126" id="q126_opt1"> Microsoft 365 Defender portal</label>
-<label><input type="radio" name="q126" id="q126_opt2"> Microsoft 365 Compliance Center</label>
-<label><input type="radio" name="q126" id="q126_opt3"> Microsoft Support portal</label>
-
+<label><input id="q126_opt0" name="q126" type="radio"/> Microsoft 365 admin center</label>
+<label><input id="q126_opt1" name="q126" type="radio"/> Microsoft 365 Defender portal</label>
+<label><input id="q126_opt2" name="q126" type="radio"/> Microsoft 365 Compliance Center</label>
+<label><input id="q126_opt3" name="q126" type="radio"/> Microsoft Support portal</label>
 </div>
 <button onclick="showAnswer('answer126')">答えを見る</button>
 <p class="answer-hidden" id="answer126"><strong>Answer:</strong> Microsoft 365 Compliance Center</p>
@@ -1403,11 +1300,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>In a Core eDiscovery workflow, what should you do before you can search for content?</h3>
 <div class="choices">
-<label><input type="radio" name="q127" id="q127_opt0"> Create an eDiscovery hold</label>
-<label><input type="radio" name="q127" id="q127_opt1"> Run Express Analysis</label>
-<label><input type="radio" name="q127" id="q127_opt2"> Configure attorney-client privilege detection</label>
-<label><input type="radio" name="q127" id="q127_opt3"> Export and download results</label>
-
+<label><input id="q127_opt0" name="q127" type="radio"/> Create an eDiscovery hold</label>
+<label><input id="q127_opt1" name="q127" type="radio"/> Run Express Analysis</label>
+<label><input id="q127_opt2" name="q127" type="radio"/> Configure attorney-client privilege detection</label>
+<label><input id="q127_opt3" name="q127" type="radio"/> Export and download results</label>
 </div>
 <button onclick="showAnswer('answer127')">答えを見る</button>
 <p class="answer-hidden" id="answer127"><strong>Answer:</strong> Create an eDiscovery hold</p>
@@ -1415,9 +1311,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Secure Score in the Microsoft 365 security center can provide o recommendations for Microsoft Cloud App Security</h3>
 <div class="choices">
-<label><input type="radio" name="q128" id="q128_opt0"> Yes</label>
-<label><input type="radio" name="q128" id="q128_opt1"> No</label>
-
+<label><input id="q128_opt0" name="q128" type="radio"/> Yes</label>
+<label><input id="q128_opt1" name="q128" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer128')">答えを見る</button>
 <p class="answer-hidden" id="answer128"><strong>Answer:</strong> Yes</p>
@@ -1425,9 +1320,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>From the Microsoft 365 security center, you can view how your Microsoft Secure Score compares to the score of organizations like yours</h3>
 <div class="choices">
-<label><input type="radio" name="q129" id="q129_opt0"> Yes</label>
-<label><input type="radio" name="q129" id="q129_opt1"> No</label>
-
+<label><input id="q129_opt0" name="q129" type="radio"/> Yes</label>
+<label><input id="q129_opt1" name="q129" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer129')">答えを見る</button>
 <p class="answer-hidden" id="answer129"><strong>Answer:</strong> Yes</p>
@@ -1435,9 +1329,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Secure Score in the Microsoft 365 security center gives you points if you address the improvement action by using a third-party application or software</h3>
 <div class="choices">
-<label><input type="radio" name="q130" id="q130_opt0"> Yes</label>
-<label><input type="radio" name="q130" id="q130_opt1"> No</label>
-
+<label><input id="q130_opt0" name="q130" type="radio"/> Yes</label>
+<label><input id="q130_opt1" name="q130" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer130')">答えを見る</button>
 <p class="answer-hidden" id="answer130"><strong>Answer:</strong> Yes</p>
@@ -1445,11 +1338,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which Microsoft 365 feature can you use to restrict users from sending email messages that contain lists of customers and their associated credit card numbers?</h3>
 <div class="choices">
-<label><input type="radio" name="q131" id="q131_opt0"> Retention policies</label>
-<label><input type="radio" name="q131" id="q131_opt1"> Data loss prevention (DLP) policies</label>
-<label><input type="radio" name="q131" id="q131_opt2"> Conditional access policies</label>
-<label><input type="radio" name="q131" id="q131_opt3"> Information barriers</label>
-
+<label><input id="q131_opt0" name="q131" type="radio"/> Retention policies</label>
+<label><input id="q131_opt1" name="q131" type="radio"/> Data loss prevention (DLP) policies</label>
+<label><input id="q131_opt2" name="q131" type="radio"/> Conditional access policies</label>
+<label><input id="q131_opt3" name="q131" type="radio"/> Information barriers</label>
 </div>
 <button onclick="showAnswer('answer131')">答えを見る</button>
 <p class="answer-hidden" id="answer131"><strong>Answer:</strong> Data loss prevention (DLP) policies</p>
@@ -1457,11 +1349,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which Azure Active Directory (Azure AD) feature can you use to evaluate group membership and automatically remove users that no longer require membership in a group?</h3>
 <div class="choices">
-<label><input type="radio" name="q132" id="q132_opt0"> Access reviews</label>
-<label><input type="radio" name="q132" id="q132_opt1"> Managed identities</label>
-<label><input type="radio" name="q132" id="q132_opt2"> Conditional access policies</label>
-<label><input type="radio" name="q132" id="q132_opt3"> Azure AD Identity Protection</label>
-
+<label><input id="q132_opt0" name="q132" type="radio"/> Access reviews</label>
+<label><input id="q132_opt1" name="q132" type="radio"/> Managed identities</label>
+<label><input id="q132_opt2" name="q132" type="radio"/> Conditional access policies</label>
+<label><input id="q132_opt3" name="q132" type="radio"/> Azure AD Identity Protection</label>
 </div>
 <button onclick="showAnswer('answer132')">答えを見る</button>
 <p class="answer-hidden" id="answer132"><strong>Answer:</strong> Access reviews</p>
@@ -1469,11 +1360,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which Microsoft portal provides information about how Microsoft cloud services comply with regulatory standard, such as International Organization for Standardization (ISO)?</h3>
 <div class="choices">
-<label><input type="radio" name="q133" id="q133_opt0"> Microsoft Endpoint Manager admin center</label>
-<label><input type="radio" name="q133" id="q133_opt1"> Azure Cost Management + Billing</label>
-<label><input type="radio" name="q133" id="q133_opt2"> Microsoft Service Trust Portal</label>
-<label><input type="radio" name="q133" id="q133_opt3"> Azure Active Directory admin center</label>
-
+<label><input id="q133_opt0" name="q133" type="radio"/> Microsoft Endpoint Manager admin center</label>
+<label><input id="q133_opt1" name="q133" type="radio"/> Azure Cost Management + Billing</label>
+<label><input id="q133_opt2" name="q133" type="radio"/> Microsoft Service Trust Portal</label>
+<label><input id="q133_opt3" name="q133" type="radio"/> Azure Active Directory admin center</label>
 </div>
 <button onclick="showAnswer('answer133')">答えを見る</button>
 <p class="answer-hidden" id="answer133"><strong>Answer:</strong> Microsoft Service Trust Portal</p>
@@ -1481,11 +1371,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What can you use to provision Azure resources across multiple subscriptions in a consistent manner?</h3>
 <div class="choices">
-<label><input type="radio" name="q134" id="q134_opt0"> Microsoft Defender for Cloud</label>
-<label><input type="radio" name="q134" id="q134_opt1"> Azure Blueprints</label>
-<label><input type="radio" name="q134" id="q134_opt2"> Microsoft Sentinel</label>
-<label><input type="radio" name="q134" id="q134_opt3"> Azure Policy</label>
-
+<label><input id="q134_opt0" name="q134" type="radio"/> Microsoft Defender for Cloud</label>
+<label><input id="q134_opt1" name="q134" type="radio"/> Azure Blueprints</label>
+<label><input id="q134_opt2" name="q134" type="radio"/> Microsoft Sentinel</label>
+<label><input id="q134_opt3" name="q134" type="radio"/> Azure Policy</label>
 </div>
 <button onclick="showAnswer('answer134')">答えを見る</button>
 <p class="answer-hidden" id="answer134"><strong>Answer:</strong> Azure Blueprints</p>
@@ -1493,10 +1382,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>When you enable security defaults in Azure Active Directory (Azure AD), [...] will be enabled for all Azure AD users</h3>
 <div class="choices">
-<label><input type="radio" name="q135" id="q135_opt0"> Azure AD Identity Protection</label>
-<label><input type="radio" name="q135" id="q135_opt1"> Azure AD Privileged Identity Management (PIM)</label>
-<label><input type="radio" name="q135" id="q135_opt2"> Multi-factor authentication (MFA)</label>
-
+<label><input id="q135_opt0" name="q135" type="radio"/> Azure AD Identity Protection</label>
+<label><input id="q135_opt1" name="q135" type="radio"/> Azure AD Privileged Identity Management (PIM)</label>
+<label><input id="q135_opt2" name="q135" type="radio"/> Multi-factor authentication (MFA)</label>
 </div>
 <button onclick="showAnswer('answer135')">答えを見る</button>
 <p class="answer-hidden" id="answer135"><strong>Answer:</strong> Multi-factor authentication (MFA)</p>
@@ -1504,11 +1392,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] provides best practices from Microsoft employees, partners, and customers, including tools and guidance to assist in an Azure deployment</h3>
 <div class="choices">
-<label><input type="radio" name="q136" id="q136_opt0"> Azure Blueprints</label>
-<label><input type="radio" name="q136" id="q136_opt1"> Azure Policy</label>
-<label><input type="radio" name="q136" id="q136_opt2"> The Microsoft Cloud Adoption Framework for Azure</label>
-<label><input type="radio" name="q136" id="q136_opt3"> A resource lock</label>
-
+<label><input id="q136_opt0" name="q136" type="radio"/> Azure Blueprints</label>
+<label><input id="q136_opt1" name="q136" type="radio"/> Azure Policy</label>
+<label><input id="q136_opt2" name="q136" type="radio"/> The Microsoft Cloud Adoption Framework for Azure</label>
+<label><input id="q136_opt3" name="q136" type="radio"/> A resource lock</label>
 </div>
 <button onclick="showAnswer('answer136')">答えを見る</button>
 <p class="answer-hidden" id="answer136"><strong>Answer:</strong> The Microsoft Cloud Adoption Framework for Azure</p>
@@ -1516,11 +1403,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can manage Microsoft Intune by using the</h3>
 <div class="choices">
-<label><input type="radio" name="q137" id="q137_opt0"> Azure Active Directory admin center</label>
-<label><input type="radio" name="q137" id="q137_opt1"> Microsoft 365 Compliance Center</label>
-<label><input type="radio" name="q137" id="q137_opt2"> Microsoft 365 Defender portal</label>
-<label><input type="radio" name="q137" id="q137_opt3"> Microsoft Endpoint Manager admin center</label>
-
+<label><input id="q137_opt0" name="q137" type="radio"/> Azure Active Directory admin center</label>
+<label><input id="q137_opt1" name="q137" type="radio"/> Microsoft 365 Compliance Center</label>
+<label><input id="q137_opt2" name="q137" type="radio"/> Microsoft 365 Defender portal</label>
+<label><input id="q137_opt3" name="q137" type="radio"/> Microsoft Endpoint Manager admin center</label>
 </div>
 <button onclick="showAnswer('answer137')">答えを見る</button>
 <p class="answer-hidden" id="answer137"><strong>Answer:</strong> Microsoft Endpoint Manager admin center</p>
@@ -1528,9 +1414,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Verify explicitly is one of the guiding principles of Zero Trust</h3>
 <div class="choices">
-<label><input type="radio" name="q138" id="q138_opt0"> Yes</label>
-<label><input type="radio" name="q138" id="q138_opt1"> No</label>
-
+<label><input id="q138_opt0" name="q138" type="radio"/> Yes</label>
+<label><input id="q138_opt1" name="q138" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer138')">答えを見る</button>
 <p class="answer-hidden" id="answer138"><strong>Answer:</strong> Yes</p>
@@ -1538,9 +1423,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Assume breach is one of the guiding principles of Zero Trust</h3>
 <div class="choices">
-<label><input type="radio" name="q139" id="q139_opt0"> Yes</label>
-<label><input type="radio" name="q139" id="q139_opt1"> No</label>
-
+<label><input id="q139_opt0" name="q139" type="radio"/> Yes</label>
+<label><input id="q139_opt1" name="q139" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer139')">答えを見る</button>
 <p class="answer-hidden" id="answer139"><strong>Answer:</strong> Yes</p>
@@ -1548,9 +1432,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>The Zero Trust security model assumes that a firewall secures the internal network from external threats</h3>
 <div class="choices">
-<label><input type="radio" name="q140" id="q140_opt0"> Yes</label>
-<label><input type="radio" name="q140" id="q140_opt1"> No</label>
-
+<label><input id="q140_opt0" name="q140" type="radio"/> Yes</label>
+<label><input id="q140_opt1" name="q140" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer140')">答えを見る</button>
 <p class="answer-hidden" id="answer140"><strong>Answer:</strong> No</p>
@@ -1558,11 +1441,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>[...] is the process of identifying whether a signed-in user can access a specific resource</h3>
 <div class="choices">
-<label><input type="radio" name="q141" id="q141_opt0"> Authentication</label>
-<label><input type="radio" name="q141" id="q141_opt1"> Authorization</label>
-<label><input type="radio" name="q141" id="q141_opt2"> Federation</label>
-<label><input type="radio" name="q141" id="q141_opt3"> Single sign-on (SSO)</label>
-
+<label><input id="q141_opt0" name="q141" type="radio"/> Authentication</label>
+<label><input id="q141_opt1" name="q141" type="radio"/> Authorization</label>
+<label><input id="q141_opt2" name="q141" type="radio"/> Federation</label>
+<label><input id="q141_opt3" name="q141" type="radio"/> Single sign-on (SSO)</label>
 </div>
 <button onclick="showAnswer('answer141')">答えを見る</button>
 <p class="answer-hidden" id="answer141"><strong>Answer:</strong> Authorization</p>
@@ -1570,22 +1452,20 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which three statements accurately describe the guiding principles of Zero Trust?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q142" id="q142_opt0"> Define the perimeter by physical locations</label>
-<label><input type="checkbox" name="q142" id="q142_opt1"> Use identity as the primary security boundary</label>
-<label><input type="checkbox" name="q142" id="q142_opt2"> Always verify the permissions of a user explicitly</label>
-<label><input type="checkbox" name="q142" id="q142_opt3"> Always assume that the user system can be breached</label>
-<label><input type="checkbox" name="q142" id="q142_opt4"> Use the network as the primary security boundary</label>
-
+<label><input id="q142_opt0" name="q142" type="checkbox"/> Define the perimeter by physical locations</label>
+<label><input id="q142_opt1" name="q142" type="checkbox"/> Use identity as the primary security boundary</label>
+<label><input id="q142_opt2" name="q142" type="checkbox"/> Always verify the permissions of a user explicitly</label>
+<label><input id="q142_opt3" name="q142" type="checkbox"/> Always assume that the user system can be breached</label>
+<label><input id="q142_opt4" name="q142" type="checkbox"/> Use the network as the primary security boundary</label>
 </div>
 <button onclick="showAnswer('answer142')">答えを見る</button>
-<p class="answer-hidden" id="answer142"><strong>Answer:</strong> Use identity as the primary security boundary.; Always verify the permissions of a user explicitly.; Always assume that the user system can be breached</p>
+<p class="answer-hidden" id="answer142"><strong>Answer:<br/>Use identity as the primary security boundary.<br/>Always verify the permissions of a user explicitly.<br/>Always assume that the user system can be breached</strong></p>
 </div>
 <div class="question">
 <h3>A higher Microsoft Secure Score means a lower identified risk level in the Microsoft 365 tenant</h3>
 <div class="choices">
-<label><input type="radio" name="q143" id="q143_opt0"> Yes</label>
-<label><input type="radio" name="q143" id="q143_opt1"> No</label>
-
+<label><input id="q143_opt0" name="q143" type="radio"/> Yes</label>
+<label><input id="q143_opt1" name="q143" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer143')">答えを見る</button>
 <p class="answer-hidden" id="answer143"><strong>Answer:</strong> Yes</p>
@@ -1593,9 +1473,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Secure Score measures progress in completing actions based on controls that include key regulations and standards for data protection and governance</h3>
 <div class="choices">
-<label><input type="radio" name="q144" id="q144_opt0"> Yes</label>
-<label><input type="radio" name="q144" id="q144_opt1"> No</label>
-
+<label><input id="q144_opt0" name="q144" type="radio"/> Yes</label>
+<label><input id="q144_opt1" name="q144" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer144')">答えを見る</button>
 <p class="answer-hidden" id="answer144"><strong>Answer:</strong> No</p>
@@ -1603,11 +1482,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>In a hybrid identity model, what can you use to sync identities between Active Directory Domain Services (AD DS) and Azure Active Directory (Azure AD)?</h3>
 <div class="choices">
-<label><input type="radio" name="q145" id="q145_opt0"> Active Directory Federation Services (AD FS)</label>
-<label><input type="radio" name="q145" id="q145_opt1"> Microsoft Sentinel</label>
-<label><input type="radio" name="q145" id="q145_opt2"> Azure AD Connect</label>
-<label><input type="radio" name="q145" id="q145_opt3"> Azure AD Privileged Identity Management (PIM)</label>
-
+<label><input id="q145_opt0" name="q145" type="radio"/> Active Directory Federation Services (AD FS)</label>
+<label><input id="q145_opt1" name="q145" type="radio"/> Microsoft Sentinel</label>
+<label><input id="q145_opt2" name="q145" type="radio"/> Azure AD Connect</label>
+<label><input id="q145_opt3" name="q145" type="radio"/> Azure AD Privileged Identity Management (PIM)</label>
 </div>
 <button onclick="showAnswer('answer145')">答えを見る</button>
 <p class="answer-hidden" id="answer145"><strong>Answer:</strong> Azure AD Connect</p>
@@ -1615,11 +1493,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>With Windows Hello for Business, a user's biometric data used for authentication</h3>
 <div class="choices">
-<label><input type="radio" name="q146" id="q146_opt0"> is stored on an external device</label>
-<label><input type="radio" name="q146" id="q146_opt1"> is stored on a local device only</label>
-<label><input type="radio" name="q146" id="q146_opt2"> is stored in Azure Active Directory (Azure AD)</label>
-<label><input type="radio" name="q146" id="q146_opt3"> is replicated to all the devices designated by the user</label>
-
+<label><input id="q146_opt0" name="q146" type="radio"/> is stored on an external device</label>
+<label><input id="q146_opt1" name="q146" type="radio"/> is stored on a local device only</label>
+<label><input id="q146_opt2" name="q146" type="radio"/> is stored in Azure Active Directory (Azure AD)</label>
+<label><input id="q146_opt3" name="q146" type="radio"/> is replicated to all the devices designated by the user</label>
 </div>
 <button onclick="showAnswer('answer146')">答えを見る</button>
 <p class="answer-hidden" id="answer146"><strong>Answer:</strong> is stored on a local device only</p>
@@ -1627,10 +1504,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Defender for Identity can identify advanced threats from [...] signals</h3>
 <div class="choices">
-<label><input type="radio" name="q147" id="q147_opt0"> Azure Active Directory (Azure AD)</label>
-<label><input type="radio" name="q147" id="q147_opt1"> Azure AD Connect</label>
-<label><input type="radio" name="q147" id="q147_opt2"> on-premises Active Directory Domain Services (AD DS)</label>
-
+<label><input id="q147_opt0" name="q147" type="radio"/> Azure Active Directory (Azure AD)</label>
+<label><input id="q147_opt1" name="q147" type="radio"/> Azure AD Connect</label>
+<label><input id="q147_opt2" name="q147" type="radio"/> on-premises Active Directory Domain Services (AD DS)</label>
 </div>
 <button onclick="showAnswer('answer147')">答えを見る</button>
 <p class="answer-hidden" id="answer147"><strong>Answer:</strong> on-premises Active Directory Domain Services (AD DS)</p>
@@ -1638,24 +1514,22 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which three authentication methods does Windows Hello for Business support?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q148" id="q148_opt0"> Fingerprint</label>
-<label><input type="checkbox" name="q148" id="q148_opt1"> Facial recognition</label>
-<label><input type="checkbox" name="q148" id="q148_opt2"> PIN</label>
-<label><input type="checkbox" name="q148" id="q148_opt3"> Email verification</label>
-<label><input type="checkbox" name="q148" id="q148_opt4"> security question</label>
-
+<label><input id="q148_opt0" name="q148" type="checkbox"/> Fingerprint</label>
+<label><input id="q148_opt1" name="q148" type="checkbox"/> Facial recognition</label>
+<label><input id="q148_opt2" name="q148" type="checkbox"/> PIN</label>
+<label><input id="q148_opt3" name="q148" type="checkbox"/> Email verification</label>
+<label><input id="q148_opt4" name="q148" type="checkbox"/> security question</label>
 </div>
 <button onclick="showAnswer('answer148')">答えを見る</button>
-<p class="answer-hidden" id="answer148"><strong>Answer:</strong> Fingerprint.; Facial recognition.; PIN</p>
+<p class="answer-hidden" id="answer148"><strong>Answer:<br/>Fingerprint.<br/>Facial recognition.<br/>PIN</strong></p>
 </div>
 <div class="question">
 <h3>You have an Azure subscription. You need to implement approval-based, time-bound role activation. What should you use?</h3>
 <div class="choices">
-<label><input type="radio" name="q149" id="q149_opt0"> Windows Hello for Business</label>
-<label><input type="radio" name="q149" id="q149_opt1"> Azure Active Directory (Azure AD) Identity Protection</label>
-<label><input type="radio" name="q149" id="q149_opt2"> Access reviews in Azure Active Directory (Azure AD)</label>
-<label><input type="radio" name="q149" id="q149_opt3"> Azure Active Directory (Azure AD) Privileged Identity Management (PIM)</label>
-
+<label><input id="q149_opt0" name="q149" type="radio"/> Windows Hello for Business</label>
+<label><input id="q149_opt1" name="q149" type="radio"/> Azure Active Directory (Azure AD) Identity Protection</label>
+<label><input id="q149_opt2" name="q149" type="radio"/> Access reviews in Azure Active Directory (Azure AD)</label>
+<label><input id="q149_opt3" name="q149" type="radio"/> Azure Active Directory (Azure AD) Privileged Identity Management (PIM)</label>
 </div>
 <button onclick="showAnswer('answer149')">答えを見る</button>
 <p class="answer-hidden" id="answer149"><strong>Answer:</strong> Azure Active Directory (Azure AD) Privileged Identity Management (PIM)</p>
@@ -1663,9 +1537,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Global administrators are exempt from conditional access policies</h3>
 <div class="choices">
-<label><input type="radio" name="q150" id="q150_opt0"> Yes</label>
-<label><input type="radio" name="q150" id="q150_opt1"> No</label>
-
+<label><input id="q150_opt0" name="q150" type="radio"/> Yes</label>
+<label><input id="q150_opt1" name="q150" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer150')">答えを見る</button>
 <p class="answer-hidden" id="answer150"><strong>Answer:</strong> No</p>
@@ -1673,9 +1546,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>A conditional access policy can add users to Azure Active Directory (Azure AD) roles</h3>
 <div class="choices">
-<label><input type="radio" name="q151" id="q151_opt0"> Yes</label>
-<label><input type="radio" name="q151" id="q151_opt1"> No</label>
-
+<label><input id="q151_opt0" name="q151" type="radio"/> Yes</label>
+<label><input id="q151_opt1" name="q151" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer151')">答えを見る</button>
 <p class="answer-hidden" id="answer151"><strong>Answer:</strong> No</p>
@@ -1683,9 +1555,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Conditional access policies can force the use of multi-factor authentication (MFA) to access cloud apps</h3>
 <div class="choices">
-<label><input type="radio" name="q152" id="q152_opt0"> Yes</label>
-<label><input type="radio" name="q152" id="q152_opt1"> No</label>
-
+<label><input id="q152_opt0" name="q152" type="radio"/> Yes</label>
+<label><input id="q152_opt1" name="q152" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer152')">答えを見る</button>
 <p class="answer-hidden" id="answer152"><strong>Answer:</strong> Yes</p>
@@ -1693,24 +1564,22 @@ function showAnswer(id) {
 <div class="question">
 <h3>When security defaults are enabled for an Azure Active Directory (Azure AD) tenant, which two requirements are enforced?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q153" id="q153_opt0"> All users must authenticate from a registered device</label>
-<label><input type="checkbox" name="q153" id="q153_opt1"> Administrators must always use Azure Multi-Factor Authentication (MFA)</label>
-<label><input type="checkbox" name="q153" id="q153_opt2"> Azure Multi-Factor Authentication (MFA) registration is required for all users</label>
-<label><input type="checkbox" name="q153" id="q153_opt3"> All users must authenticate by using passwordless sign-in</label>
-<label><input type="checkbox" name="q153" id="q153_opt4"> All users must authenticate by using Windows Hello</label>
-
+<label><input id="q153_opt0" name="q153" type="checkbox"/> All users must authenticate from a registered device</label>
+<label><input id="q153_opt1" name="q153" type="checkbox"/> Administrators must always use Azure Multi-Factor Authentication (MFA)</label>
+<label><input id="q153_opt2" name="q153" type="checkbox"/> Azure Multi-Factor Authentication (MFA) registration is required for all users</label>
+<label><input id="q153_opt3" name="q153" type="checkbox"/> All users must authenticate by using passwordless sign-in</label>
+<label><input id="q153_opt4" name="q153" type="checkbox"/> All users must authenticate by using Windows Hello</label>
 </div>
 <button onclick="showAnswer('answer153')">答えを見る</button>
-<p class="answer-hidden" id="answer153"><strong>Answer:</strong> Administrators must always use Azure Multi-Factor Authentication (MFA).; Azure Multi-Factor Authentication (MFA) registration is required for all users</p>
+<p class="answer-hidden" id="answer153"><strong>Answer:<br/>Administrators must always use Azure Multi-Factor Authentication (MFA).<br/>Azure Multi-Factor Authentication (MFA) registration is required for all users</strong></p>
 </div>
 <div class="question">
 <h3>Which type of identity is created when you register an application with Active Directory (Azure AD)?</h3>
 <div class="choices">
-<label><input type="radio" name="q154" id="q154_opt0"> User account</label>
-<label><input type="radio" name="q154" id="q154_opt1"> User-assigned managed identity</label>
-<label><input type="radio" name="q154" id="q154_opt2"> System-assigned managed identity</label>
-<label><input type="radio" name="q154" id="q154_opt3"> Service principal</label>
-
+<label><input id="q154_opt0" name="q154" type="radio"/> User account</label>
+<label><input id="q154_opt1" name="q154" type="radio"/> User-assigned managed identity</label>
+<label><input id="q154_opt2" name="q154" type="radio"/> System-assigned managed identity</label>
+<label><input id="q154_opt3" name="q154" type="radio"/> Service principal</label>
 </div>
 <button onclick="showAnswer('answer154')">答えを見る</button>
 <p class="answer-hidden" id="answer154"><strong>Answer:</strong> Service principal</p>
@@ -1718,24 +1587,22 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which three tasks can be performed by using Azure Active Directory (Azure AD) Identity Protection?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q155" id="q155_opt0"> Configure external access for partner organizations</label>
-<label><input type="checkbox" name="q155" id="q155_opt1"> Export risk detection to third-party utilities</label>
-<label><input type="checkbox" name="q155" id="q155_opt2"> Automate the detection and remediation of identity based-risks</label>
-<label><input type="checkbox" name="q155" id="q155_opt3"> Investigate risks that relate to user authentication</label>
-<label><input type="checkbox" name="q155" id="q155_opt4"> Create and automatically assign sensitivity labels to data</label>
-
+<label><input id="q155_opt0" name="q155" type="checkbox"/> Configure external access for partner organizations</label>
+<label><input id="q155_opt1" name="q155" type="checkbox"/> Export risk detection to third-party utilities</label>
+<label><input id="q155_opt2" name="q155" type="checkbox"/> Automate the detection and remediation of identity based-risks</label>
+<label><input id="q155_opt3" name="q155" type="checkbox"/> Investigate risks that relate to user authentication</label>
+<label><input id="q155_opt4" name="q155" type="checkbox"/> Create and automatically assign sensitivity labels to data</label>
 </div>
 <button onclick="showAnswer('answer155')">答えを見る</button>
-<p class="answer-hidden" id="answer155"><strong>Answer:</strong> Export risk detection to third-party utilities.; Automate the detection and remediation of identity based-risks.; Investigate risks that relate to user authentication</p>
+<p class="answer-hidden" id="answer155"><strong>Answer:<br/>Export risk detection to third-party utilities.<br/>Automate the detection and remediation of identity based-risks.<br/>Investigate risks that relate to user authentication</strong></p>
 </div>
 <div class="question">
 <h3>When using multi-factor authentication (MFA), a password is considered something you [...]</h3>
 <div class="choices">
-<label><input type="radio" name="q156" id="q156_opt0"> are</label>
-<label><input type="radio" name="q156" id="q156_opt1"> have</label>
-<label><input type="radio" name="q156" id="q156_opt2"> know</label>
-<label><input type="radio" name="q156" id="q156_opt3"> share</label>
-
+<label><input id="q156_opt0" name="q156" type="radio"/> are</label>
+<label><input id="q156_opt1" name="q156" type="radio"/> have</label>
+<label><input id="q156_opt2" name="q156" type="radio"/> know</label>
+<label><input id="q156_opt3" name="q156" type="radio"/> share</label>
 </div>
 <button onclick="showAnswer('answer156')">答えを見る</button>
 <p class="answer-hidden" id="answer156"><strong>Answer:</strong> know</p>
@@ -1743,9 +1610,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Windows Hello for Business can use the Microsoft Authenticator app as an authentication method</h3>
 <div class="choices">
-<label><input type="radio" name="q157" id="q157_opt0"> Yes</label>
-<label><input type="radio" name="q157" id="q157_opt1"> No</label>
-
+<label><input id="q157_opt0" name="q157" type="radio"/> Yes</label>
+<label><input id="q157_opt1" name="q157" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer157')">答えを見る</button>
 <p class="answer-hidden" id="answer157"><strong>Answer:</strong> No</p>
@@ -1753,9 +1619,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Windows Hello for Business can use a PIN code as an authentication method</h3>
 <div class="choices">
-<label><input type="radio" name="q158" id="q158_opt0"> Yes</label>
-<label><input type="radio" name="q158" id="q158_opt1"> No</label>
-
+<label><input id="q158_opt0" name="q158" type="radio"/> Yes</label>
+<label><input id="q158_opt1" name="q158" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer158')">答えを見る</button>
 <p class="answer-hidden" id="answer158"><strong>Answer:</strong> Yes</p>
@@ -1763,9 +1628,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Windows Hello for Business authentication information syncs across all the devices registered by a user</h3>
 <div class="choices">
-<label><input type="radio" name="q159" id="q159_opt0"> Yes</label>
-<label><input type="radio" name="q159" id="q159_opt1"> No</label>
-
+<label><input id="q159_opt0" name="q159" type="radio"/> Yes</label>
+<label><input id="q159_opt1" name="q159" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer159')">答えを見る</button>
 <p class="answer-hidden" id="answer159"><strong>Answer:</strong> No</p>
@@ -1773,11 +1637,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>An Azure resource can use a system-assigned [...] to access Azure services</h3>
 <div class="choices">
-<label><input type="radio" name="q160" id="q160_opt0"> Azure Active Directory (Azure AD) joined device</label>
-<label><input type="radio" name="q160" id="q160_opt1"> managed identity</label>
-<label><input type="radio" name="q160" id="q160_opt2"> service principal</label>
-<label><input type="radio" name="q160" id="q160_opt3"> user identity</label>
-
+<label><input id="q160_opt0" name="q160" type="radio"/> Azure Active Directory (Azure AD) joined device</label>
+<label><input id="q160_opt1" name="q160" type="radio"/> managed identity</label>
+<label><input id="q160_opt2" name="q160" type="radio"/> service principal</label>
+<label><input id="q160_opt3" name="q160" type="radio"/> user identity</label>
 </div>
 <button onclick="showAnswer('answer160')">答えを見る</button>
 <p class="answer-hidden" id="answer160"><strong>Answer:</strong> managed identity</p>
@@ -1785,11 +1648,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can use [...] in the Microsoft 365 security center to view an aggregation of alerts that relate to the same attack</h3>
 <div class="choices">
-<label><input type="radio" name="q161" id="q161_opt0"> Reports</label>
-<label><input type="radio" name="q161" id="q161_opt1"> Hunting</label>
-<label><input type="radio" name="q161" id="q161_opt2"> Attack simulator</label>
-<label><input type="radio" name="q161" id="q161_opt3"> Incidents</label>
-
+<label><input id="q161_opt0" name="q161" type="radio"/> Reports</label>
+<label><input id="q161_opt1" name="q161" type="radio"/> Hunting</label>
+<label><input id="q161_opt2" name="q161" type="radio"/> Attack simulator</label>
+<label><input id="q161_opt3" name="q161" type="radio"/> Incidents</label>
 </div>
 <button onclick="showAnswer('answer161')">答えを見る</button>
 <p class="answer-hidden" id="answer161"><strong>Answer:</strong> Incidents</p>
@@ -1797,9 +1659,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can create one Azure Bastion per virtual network</h3>
 <div class="choices">
-<label><input type="radio" name="q162" id="q162_opt0"> Yes</label>
-<label><input type="radio" name="q162" id="q162_opt1"> No</label>
-
+<label><input id="q162_opt0" name="q162" type="radio"/> Yes</label>
+<label><input id="q162_opt1" name="q162" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer162')">答えを見る</button>
 <p class="answer-hidden" id="answer162"><strong>Answer:</strong> Yes</p>
@@ -1807,9 +1668,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Bastion provides secure user connections by using RDP</h3>
 <div class="choices">
-<label><input type="radio" name="q163" id="q163_opt0"> Yes</label>
-<label><input type="radio" name="q163" id="q163_opt1"> No</label>
-
+<label><input id="q163_opt0" name="q163" type="radio"/> Yes</label>
+<label><input id="q163_opt1" name="q163" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer163')">答えを見る</button>
 <p class="answer-hidden" id="answer163"><strong>Answer:</strong> Yes</p>
@@ -1817,11 +1677,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>In Microsoft Sentinel, you can automate common tasks by using [...]</h3>
 <div class="choices">
-<label><input type="radio" name="q164" id="q164_opt0"> deep investigation tools</label>
-<label><input type="radio" name="q164" id="q164_opt1"> hunting search-and-query tools</label>
-<label><input type="radio" name="q164" id="q164_opt2"> playbooks</label>
-<label><input type="radio" name="q164" id="q164_opt3"> workbooks</label>
-
+<label><input id="q164_opt0" name="q164" type="radio"/> deep investigation tools</label>
+<label><input id="q164_opt1" name="q164" type="radio"/> hunting search-and-query tools</label>
+<label><input id="q164_opt2" name="q164" type="radio"/> playbooks</label>
+<label><input id="q164_opt3" name="q164" type="radio"/> workbooks</label>
 </div>
 <button onclick="showAnswer('answer164')">答えを見る</button>
 <p class="answer-hidden" id="answer164"><strong>Answer:</strong> playbooks</p>
@@ -1829,11 +1688,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which Azure Active Directory (Azure AD) feature can you use to restrict Microsoft Intune-managed devices from accessing corporate resources?</h3>
 <div class="choices">
-<label><input type="radio" name="q165" id="q165_opt0"> Network security groups (NSGs)</label>
-<label><input type="radio" name="q165" id="q165_opt1"> Azure AD Privileged Identity Management (PIM)</label>
-<label><input type="radio" name="q165" id="q165_opt2"> Conditional access policies</label>
-<label><input type="radio" name="q165" id="q165_opt3"> Resource locks</label>
-
+<label><input id="q165_opt0" name="q165" type="radio"/> Network security groups (NSGs)</label>
+<label><input id="q165_opt1" name="q165" type="radio"/> Azure AD Privileged Identity Management (PIM)</label>
+<label><input id="q165_opt2" name="q165" type="radio"/> Conditional access policies</label>
+<label><input id="q165_opt3" name="q165" type="radio"/> Resource locks</label>
 </div>
 <button onclick="showAnswer('answer165')">答えを見る</button>
 <p class="answer-hidden" id="answer165"><strong>Answer:</strong> Conditional access policies</p>
@@ -1841,11 +1699,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What should you use in the Microsoft 365 Defender portal to view security trends and track the protection status of identities?</h3>
 <div class="choices">
-<label><input type="radio" name="q166" id="q166_opt0"> Attack simulator</label>
-<label><input type="radio" name="q166" id="q166_opt1"> Reports</label>
-<label><input type="radio" name="q166" id="q166_opt2"> Hunting</label>
-<label><input type="radio" name="q166" id="q166_opt3"> Incidents</label>
-
+<label><input id="q166_opt0" name="q166" type="radio"/> Attack simulator</label>
+<label><input id="q166_opt1" name="q166" type="radio"/> Reports</label>
+<label><input id="q166_opt2" name="q166" type="radio"/> Hunting</label>
+<label><input id="q166_opt3" name="q166" type="radio"/> Incidents</label>
 </div>
 <button onclick="showAnswer('answer166')">答えを見る</button>
 <p class="answer-hidden" id="answer166"><strong>Answer:</strong> Reports</p>
@@ -1853,11 +1710,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>You have a Microsoft 365 E3 subscription. You plan to audit user activity by using the unified audit log and Basic Audit. For how long will the audit records be retained?</h3>
 <div class="choices">
-<label><input type="radio" name="q167" id="q167_opt0"> 15 days</label>
-<label><input type="radio" name="q167" id="q167_opt1"> 30 days</label>
-<label><input type="radio" name="q167" id="q167_opt2"> 90 days</label>
-<label><input type="radio" name="q167" id="q167_opt3"> 180 days</label>
-
+<label><input id="q167_opt0" name="q167" type="radio"/> 15 days</label>
+<label><input id="q167_opt1" name="q167" type="radio"/> 30 days</label>
+<label><input id="q167_opt2" name="q167" type="radio"/> 90 days</label>
+<label><input id="q167_opt3" name="q167" type="radio"/> 180 days</label>
 </div>
 <button onclick="showAnswer('answer167')">答えを見る</button>
 <p class="answer-hidden" id="answer167"><strong>Answer:</strong> 90 days</p>
@@ -1865,11 +1721,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>In the Microsoft 365 Defender portal, an incident is a collection of correlated [...]</h3>
 <div class="choices">
-<label><input type="radio" name="q168" id="q168_opt0"> alerts</label>
-<label><input type="radio" name="q168" id="q168_opt1"> events</label>
-<label><input type="radio" name="q168" id="q168_opt2"> vulnerabilities</label>
-<label><input type="radio" name="q168" id="q168_opt3"> Microsoft Secure Score improvement actions</label>
-
+<label><input id="q168_opt0" name="q168" type="radio"/> alerts</label>
+<label><input id="q168_opt1" name="q168" type="radio"/> events</label>
+<label><input id="q168_opt2" name="q168" type="radio"/> vulnerabilities</label>
+<label><input id="q168_opt3" name="q168" type="radio"/> Microsoft Secure Score improvement actions</label>
 </div>
 <button onclick="showAnswer('answer168')">答えを見る</button>
 <p class="answer-hidden" id="answer168"><strong>Answer:</strong> vulnerabilities</p>
@@ -1877,11 +1732,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>You need to connect to an Azure virtual machine by using Azure Bastion. What should you use?</h3>
 <div class="choices">
-<label><input type="radio" name="q169" id="q169_opt0"> PowerShell remoting</label>
-<label><input type="radio" name="q169" id="q169_opt1"> Azure portal</label>
-<label><input type="radio" name="q169" id="q169_opt2"> Remote Desktop Connection client</label>
-<label><input type="radio" name="q169" id="q169_opt3"> SSH client</label>
-
+<label><input id="q169_opt0" name="q169" type="radio"/> PowerShell remoting</label>
+<label><input id="q169_opt1" name="q169" type="radio"/> Azure portal</label>
+<label><input id="q169_opt2" name="q169" type="radio"/> Remote Desktop Connection client</label>
+<label><input id="q169_opt3" name="q169" type="radio"/> SSH client</label>
 </div>
 <button onclick="showAnswer('answer169')">答えを見る</button>
 <p class="answer-hidden" id="answer169"><strong>Answer:</strong> Azure portal</p>
@@ -1889,11 +1743,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which service includes the Attack simulation training feature?</h3>
 <div class="choices">
-<label><input type="radio" name="q170" id="q170_opt0"> Microsoft Defender for Cloud Apps</label>
-<label><input type="radio" name="q170" id="q170_opt1"> Microsoft Defender for Identity</label>
-<label><input type="radio" name="q170" id="q170_opt2"> Microsoft Defender for SQL</label>
-<label><input type="radio" name="q170" id="q170_opt3"> Microsoft Defender for Office 365</label>
-
+<label><input id="q170_opt0" name="q170" type="radio"/> Microsoft Defender for Cloud Apps</label>
+<label><input id="q170_opt1" name="q170" type="radio"/> Microsoft Defender for Identity</label>
+<label><input id="q170_opt2" name="q170" type="radio"/> Microsoft Defender for SQL</label>
+<label><input id="q170_opt3" name="q170" type="radio"/> Microsoft Defender for Office 365</label>
 </div>
 <button onclick="showAnswer('answer170')">答えを見る</button>
 <p class="answer-hidden" id="answer170"><strong>Answer:</strong> Microsoft Defender for Office 365</p>
@@ -1901,11 +1754,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which type of alert can you manage from the Microsoft 365 Defender portal?</h3>
 <div class="choices">
-<label><input type="radio" name="q171" id="q171_opt0"> Microsoft Defender for Storage</label>
-<label><input type="radio" name="q171" id="q171_opt1"> Microsoft Defender for SQL</label>
-<label><input type="radio" name="q171" id="q171_opt2"> Microsoft Defender for Endpoint</label>
-<label><input type="radio" name="q171" id="q171_opt3"> Microsoft Defender for IoT</label>
-
+<label><input id="q171_opt0" name="q171" type="radio"/> Microsoft Defender for Storage</label>
+<label><input id="q171_opt1" name="q171" type="radio"/> Microsoft Defender for SQL</label>
+<label><input id="q171_opt2" name="q171" type="radio"/> Microsoft Defender for Endpoint</label>
+<label><input id="q171_opt3" name="q171" type="radio"/> Microsoft Defender for IoT</label>
 </div>
 <button onclick="showAnswer('answer171')">答えを見る</button>
 <p class="answer-hidden" id="answer171"><strong>Answer:</strong> Microsoft Defender for Endpoint</p>
@@ -1913,9 +1765,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft Sentinel data connectors support only Microsoft services</h3>
 <div class="choices">
-<label><input type="radio" name="q172" id="q172_opt0"> Yes</label>
-<label><input type="radio" name="q172" id="q172_opt1"> No</label>
-
+<label><input id="q172_opt0" name="q172" type="radio"/> Yes</label>
+<label><input id="q172_opt1" name="q172" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer172')">答えを見る</button>
 <p class="answer-hidden" id="answer172"><strong>Answer:</strong> No</p>
@@ -1923,9 +1774,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can use Azure Monitor workbooks to monitor data collected by Microsoft Sentinel</h3>
 <div class="choices">
-<label><input type="radio" name="q173" id="q173_opt0"> Yes</label>
-<label><input type="radio" name="q173" id="q173_opt1"> No</label>
-
+<label><input id="q173_opt0" name="q173" type="radio"/> Yes</label>
+<label><input id="q173_opt1" name="q173" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer173')">答えを見る</button>
 <p class="answer-hidden" id="answer173"><strong>Answer:</strong> Yes</p>
@@ -1933,9 +1783,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Hunting provides you with the ability to identify security threats before an alert is triggered</h3>
 <div class="choices">
-<label><input type="radio" name="q174" id="q174_opt0"> Yes</label>
-<label><input type="radio" name="q174" id="q174_opt1"> No</label>
-
+<label><input id="q174_opt0" name="q174" type="radio"/> Yes</label>
+<label><input id="q174_opt1" name="q174" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer174')">答えを見る</button>
 <p class="answer-hidden" id="answer174"><strong>Answer:</strong> Yes</p>
@@ -1943,11 +1792,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What is a use case for implementing information barrier policies in Microsoft 365?</h3>
 <div class="choices">
-<label><input type="radio" name="q175" id="q175_opt0"> Restrict unauthenticated access to Microsoft 365</label>
-<label><input type="radio" name="q175" id="q175_opt1"> Restrict Microsoft Teams chats between certain groups within an organization</label>
-<label><input type="radio" name="q175" id="q175_opt2"> Restrict Microsoft Exchange Online email between certain groups within an organization</label>
-<label><input type="radio" name="q175" id="q175_opt3"> Restrict data sharing to external email recipients</label>
-
+<label><input id="q175_opt0" name="q175" type="radio"/> Restrict unauthenticated access to Microsoft 365</label>
+<label><input id="q175_opt1" name="q175" type="radio"/> Restrict Microsoft Teams chats between certain groups within an organization</label>
+<label><input id="q175_opt2" name="q175" type="radio"/> Restrict Microsoft Exchange Online email between certain groups within an organization</label>
+<label><input id="q175_opt3" name="q175" type="radio"/> Restrict data sharing to external email recipients</label>
 </div>
 <button onclick="showAnswer('answer175')">答えを見る</button>
 <p class="answer-hidden" id="answer175"><strong>Answer:</strong> Restrict Microsoft Teams chats between certain groups within an organization</p>
@@ -1955,11 +1803,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What can you use to deploy Azure resources across multiple subscriptions in a consistent manner?</h3>
 <div class="choices">
-<label><input type="radio" name="q176" id="q176_opt0"> Microsoft Defender for Cloud</label>
-<label><input type="radio" name="q176" id="q176_opt1"> Azure Blueprints</label>
-<label><input type="radio" name="q176" id="q176_opt2"> Microsoft Sentinel</label>
-<label><input type="radio" name="q176" id="q176_opt3"> Azure Policy</label>
-
+<label><input id="q176_opt0" name="q176" type="radio"/> Microsoft Defender for Cloud</label>
+<label><input id="q176_opt1" name="q176" type="radio"/> Azure Blueprints</label>
+<label><input id="q176_opt2" name="q176" type="radio"/> Microsoft Sentinel</label>
+<label><input id="q176_opt3" name="q176" type="radio"/> Azure Policy</label>
 </div>
 <button onclick="showAnswer('answer176')">答えを見る</button>
 <p class="answer-hidden" id="answer176"><strong>Answer:</strong> Azure Blueprints</p>
@@ -1967,9 +1814,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Defender provides security alerts and advanced threat protection for virtual machines, SQL databases, containers, web applications, your network, your storage, and more</h3>
 <div class="choices">
-<label><input type="radio" name="q177" id="q177_opt0"> Yes</label>
-<label><input type="radio" name="q177" id="q177_opt1"> No</label>
-
+<label><input id="q177_opt0" name="q177" type="radio"/> Yes</label>
+<label><input id="q177_opt1" name="q177" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer177')">答えを見る</button>
 <p class="answer-hidden" id="answer177"><strong>Answer:</strong> Yes</p>
@@ -1977,9 +1823,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Cloud security posture management (CSPM) is available for free to all Azure users</h3>
 <div class="choices">
-<label><input type="radio" name="q178" id="q178_opt0"> Yes</label>
-<label><input type="radio" name="q178" id="q178_opt1"> No</label>
-
+<label><input id="q178_opt0" name="q178" type="radio"/> Yes</label>
+<label><input id="q178_opt1" name="q178" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer178')">答えを見る</button>
 <p class="answer-hidden" id="answer178"><strong>Answer:</strong> Yes</p>
@@ -1987,9 +1832,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Security Center is a unified infrastructure security management system that strengthens the security posture of your data centers, and provides advanced threat protection across your hybrid workloads in the cloud – whether they’re in Azure or not – as well as on premises</h3>
 <div class="choices">
-<label><input type="radio" name="q179" id="q179_opt0"> Yes</label>
-<label><input type="radio" name="q179" id="q179_opt1"> No</label>
-
+<label><input id="q179_opt0" name="q179" type="radio"/> Yes</label>
+<label><input id="q179_opt1" name="q179" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer179')">答えを見る</button>
 <p class="answer-hidden" id="answer179"><strong>Answer:</strong> Yes</p>
@@ -1997,9 +1841,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Active Directory (Azure AD) is a cloud-based user identity and authentication service</h3>
 <div class="choices">
-<label><input type="radio" name="q180" id="q180_opt0"> Yes</label>
-<label><input type="radio" name="q180" id="q180_opt1"> No</label>
-
+<label><input id="q180_opt0" name="q180" type="radio"/> Yes</label>
+<label><input id="q180_opt1" name="q180" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer180')">答えを見る</button>
 <p class="answer-hidden" id="answer180"><strong>Answer:</strong> No</p>
@@ -2007,9 +1850,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Microsoft 365 uses Azure Active Directory (Azure AD). Azure Active Directory (Azure AD) is included with your Microsoft 365 subscription</h3>
 <div class="choices">
-<label><input type="radio" name="q181" id="q181_opt0"> Yes</label>
-<label><input type="radio" name="q181" id="q181_opt1"> No</label>
-
+<label><input id="q181_opt0" name="q181" type="radio"/> Yes</label>
+<label><input id="q181_opt1" name="q181" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer181')">答えを見る</button>
 <p class="answer-hidden" id="answer181"><strong>Answer:</strong> Yes</p>
@@ -2017,9 +1859,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Azure Bastion provides a secure connection to an Azure virtual machine by using the Azure portal</h3>
 <div class="choices">
-<label><input type="radio" name="q182" id="q182_opt0"> Yes</label>
-<label><input type="radio" name="q182" id="q182_opt1"> No</label>
-
+<label><input id="q182_opt0" name="q182" type="radio"/> Yes</label>
+<label><input id="q182_opt1" name="q182" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer182')">答えを見る</button>
 <p class="answer-hidden" id="answer182"><strong>Answer:</strong> Yes</p>
@@ -2027,9 +1868,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Applying system updates increases an organization's secure score in Microsoft Defender for Cloud</h3>
 <div class="choices">
-<label><input type="radio" name="q183" id="q183_opt0"> Yes</label>
-<label><input type="radio" name="q183" id="q183_opt1"> No</label>
-
+<label><input id="q183_opt0" name="q183" type="radio"/> Yes</label>
+<label><input id="q183_opt1" name="q183" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer183')">答えを見る</button>
 <p class="answer-hidden" id="answer183"><strong>Answer:</strong> Yes</p>
@@ -2037,9 +1877,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>The secure score in Microsoft Defender for Cloud can evaluate resources across multiple Azure subscriptions</h3>
 <div class="choices">
-<label><input type="radio" name="q184" id="q184_opt0"> Yes</label>
-<label><input type="radio" name="q184" id="q184_opt1"> No</label>
-
+<label><input id="q184_opt0" name="q184" type="radio"/> Yes</label>
+<label><input id="q184_opt1" name="q184" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer184')">答えを見る</button>
 <p class="answer-hidden" id="answer184"><strong>Answer:</strong> Yes</p>
@@ -2047,9 +1886,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Enabling multi-factor authentication (MFA) increases an organization's secure score in Microsoft Defender for Cloud</h3>
 <div class="choices">
-<label><input type="radio" name="q185" id="q185_opt0"> Yes</label>
-<label><input type="radio" name="q185" id="q185_opt1"> No</label>
-
+<label><input id="q185_opt0" name="q185" type="radio"/> Yes</label>
+<label><input id="q185_opt1" name="q185" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer185')">答えを見る</button>
 <p class="answer-hidden" id="answer185"><strong>Answer:</strong> Yes</p>
@@ -2057,11 +1895,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which score measures an organization's progress in completing actions that help reduce risks associated to data protection and regulatory standards?</h3>
 <div class="choices">
-<label><input type="radio" name="q186" id="q186_opt0"> Microsoft Secure Score</label>
-<label><input type="radio" name="q186" id="q186_opt1"> AProductivity Score</label>
-<label><input type="radio" name="q186" id="q186_opt2"> Secure score in Azure Security Center</label>
-<label><input type="radio" name="q186" id="q186_opt3"> Compliance score</label>
-
+<label><input id="q186_opt0" name="q186" type="radio"/> Microsoft Secure Score</label>
+<label><input id="q186_opt1" name="q186" type="radio"/> AProductivity Score</label>
+<label><input id="q186_opt2" name="q186" type="radio"/> Secure score in Azure Security Center</label>
+<label><input id="q186_opt3" name="q186" type="radio"/> Compliance score</label>
 </div>
 <button onclick="showAnswer('answer186')">答えを見る</button>
 <p class="answer-hidden" id="answer186"><strong>Answer:</strong> Compliance score</p>
@@ -2069,10 +1906,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>You are evaluating the compliance score in Compliance Manager. Match the compliance score action subcategories to the appropriate actions. [...] Encrypt data at rest</h3>
 <div class="choices">
-<label><input type="radio" name="q187" id="q187_opt0"> Corrective</label>
-<label><input type="radio" name="q187" id="q187_opt1"> Detective</label>
-<label><input type="radio" name="q187" id="q187_opt2"> Preventative</label>
-
+<label><input id="q187_opt0" name="q187" type="radio"/> Corrective</label>
+<label><input id="q187_opt1" name="q187" type="radio"/> Detective</label>
+<label><input id="q187_opt2" name="q187" type="radio"/> Preventative</label>
 </div>
 <button onclick="showAnswer('answer187')">答えを見る</button>
 <p class="answer-hidden" id="answer187"><strong>Answer:</strong> Preventative</p>
@@ -2080,10 +1916,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>You are evaluating the compliance score in Compliance Manager. Match the compliance score action subcategories to the appropriate actions. [...] Perform a system access audit</h3>
 <div class="choices">
-<label><input type="radio" name="q188" id="q188_opt0"> Corrective</label>
-<label><input type="radio" name="q188" id="q188_opt1"> Detective</label>
-<label><input type="radio" name="q188" id="q188_opt2"> Preventative</label>
-
+<label><input id="q188_opt0" name="q188" type="radio"/> Corrective</label>
+<label><input id="q188_opt1" name="q188" type="radio"/> Detective</label>
+<label><input id="q188_opt2" name="q188" type="radio"/> Preventative</label>
 </div>
 <button onclick="showAnswer('answer188')">答えを見る</button>
 <p class="answer-hidden" id="answer188"><strong>Answer:</strong> Detective</p>
@@ -2091,10 +1926,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>You are evaluating the compliance score in Compliance Manager. Match the compliance score action subcategories to the appropriate actions. [...] Make configuration changes in response to a security incident</h3>
 <div class="choices">
-<label><input type="radio" name="q189" id="q189_opt0"> Corrective</label>
-<label><input type="radio" name="q189" id="q189_opt1"> Detective</label>
-<label><input type="radio" name="q189" id="q189_opt2"> Preventative</label>
-
+<label><input id="q189_opt0" name="q189" type="radio"/> Corrective</label>
+<label><input id="q189_opt1" name="q189" type="radio"/> Detective</label>
+<label><input id="q189_opt2" name="q189" type="radio"/> Preventative</label>
 </div>
 <button onclick="showAnswer('answer189')">答えを見る</button>
 <p class="answer-hidden" id="answer189"><strong>Answer:</strong> Corrective</p>
@@ -2102,9 +1936,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Conditional access policies can be applied to global administrators</h3>
 <div class="choices">
-<label><input type="radio" name="q190" id="q190_opt0"> Yes</label>
-<label><input type="radio" name="q190" id="q190_opt1"> No</label>
-
+<label><input id="q190_opt0" name="q190" type="radio"/> Yes</label>
+<label><input id="q190_opt1" name="q190" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer190')">答えを見る</button>
 <p class="answer-hidden" id="answer190"><strong>Answer:</strong> Yes</p>
@@ -2112,9 +1945,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Conditional access policies are evaluated before a user is authenticated</h3>
 <div class="choices">
-<label><input type="radio" name="q191" id="q191_opt0"> Yes</label>
-<label><input type="radio" name="q191" id="q191_opt1"> No</label>
-
+<label><input id="q191_opt0" name="q191" type="radio"/> Yes</label>
+<label><input id="q191_opt1" name="q191" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer191')">答えを見る</button>
 <p class="answer-hidden" id="answer191"><strong>Answer:</strong> No</p>
@@ -2122,9 +1954,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Conditional access policies can use a device platform, such as Android or iOS, as a signal</h3>
 <div class="choices">
-<label><input type="radio" name="q192" id="q192_opt0"> Yes</label>
-<label><input type="radio" name="q192" id="q192_opt1"> No</label>
-
+<label><input id="q192_opt0" name="q192" type="radio"/> Yes</label>
+<label><input id="q192_opt1" name="q192" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer192')">答えを見る</button>
 <p class="answer-hidden" id="answer192"><strong>Answer:</strong> Yes</p>
@@ -2132,24 +1963,22 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which two cards are available in the Microsoft 365 Defender portal?</h3>
 <div class="choices">
-<label><input type="checkbox" name="q193" id="q193_opt0"> Users at risk</label>
-<label><input type="checkbox" name="q193" id="q193_opt1"> Compliance Score</label>
-<label><input type="checkbox" name="q193" id="q193_opt2"> Devices at risk</label>
-<label><input type="checkbox" name="q193" id="q193_opt3"> Service Health</label>
-<label><input type="checkbox" name="q193" id="q193_opt4"> User Management</label>
-
+<label><input id="q193_opt0" name="q193" type="checkbox"/> Users at risk</label>
+<label><input id="q193_opt1" name="q193" type="checkbox"/> Compliance Score</label>
+<label><input id="q193_opt2" name="q193" type="checkbox"/> Devices at risk</label>
+<label><input id="q193_opt3" name="q193" type="checkbox"/> Service Health</label>
+<label><input id="q193_opt4" name="q193" type="checkbox"/> User Management</label>
 </div>
 <button onclick="showAnswer('answer193')">答えを見る</button>
-<p class="answer-hidden" id="answer193"><strong>Answer:</strong> Compliance Score.; Devices at risk</p>
+<p class="answer-hidden" id="answer193"><strong>Answer:<br/>Compliance Score.<br/>Devices at risk</strong></p>
 </div>
 <div class="question">
 <h3>Microsoft 365 Endpoint data loss prevention (Endpoint DLP) can be used on which operating systems?</h3>
 <div class="choices">
-<label><input type="radio" name="q194" id="q194_opt0"> Windows 10 and iOS only</label>
-<label><input type="radio" name="q194" id="q194_opt1"> Windows 10 and Android only</label>
-<label><input type="radio" name="q194" id="q194_opt2"> Windows 10, Android, and iOS</label>
-<label><input type="radio" name="q194" id="q194_opt3"> Windows 10 only</label>
-
+<label><input id="q194_opt0" name="q194" type="radio"/> Windows 10 and iOS only</label>
+<label><input id="q194_opt1" name="q194" type="radio"/> Windows 10 and Android only</label>
+<label><input id="q194_opt2" name="q194" type="radio"/> Windows 10, Android, and iOS</label>
+<label><input id="q194_opt3" name="q194" type="radio"/> Windows 10 only</label>
 </div>
 <button onclick="showAnswer('answer194')">答えを見る</button>
 <p class="answer-hidden" id="answer194"><strong>Answer:</strong> Windows 10 and iOS only</p>
@@ -2157,11 +1986,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>Which compliance feature should you use to identify documents that are employee resumes?</h3>
 <div class="choices">
-<label><input type="radio" name="q195" id="q195_opt0"> Pre-trained classifiers</label>
-<label><input type="radio" name="q195" id="q195_opt1"> Content explorer</label>
-<label><input type="radio" name="q195" id="q195_opt2"> Activity explorer</label>
-<label><input type="radio" name="q195" id="q195_opt3"> eDiscovery</label>
-
+<label><input id="q195_opt0" name="q195" type="radio"/> Pre-trained classifiers</label>
+<label><input id="q195_opt1" name="q195" type="radio"/> Content explorer</label>
+<label><input id="q195_opt2" name="q195" type="radio"/> Activity explorer</label>
+<label><input id="q195_opt3" name="q195" type="radio"/> eDiscovery</label>
 </div>
 <button onclick="showAnswer('answer195')">答えを見る</button>
 <p class="answer-hidden" id="answer195"><strong>Answer:</strong> Activity explorer</p>
@@ -2169,11 +1997,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What are customers responsible for when evaluating security in a software as a service (SaaS) cloud services model?</h3>
 <div class="choices">
-<label><input type="radio" name="q196" id="q196_opt0"> Applications</label>
-<label><input type="radio" name="q196" id="q196_opt1"> Network controls</label>
-<label><input type="radio" name="q196" id="q196_opt2"> Operating systems</label>
-<label><input type="radio" name="q196" id="q196_opt3"> Accounts and identities</label>
-
+<label><input id="q196_opt0" name="q196" type="radio"/> Applications</label>
+<label><input id="q196_opt1" name="q196" type="radio"/> Network controls</label>
+<label><input id="q196_opt2" name="q196" type="radio"/> Operating systems</label>
+<label><input id="q196_opt3" name="q196" type="radio"/> Accounts and identities</label>
 </div>
 <button onclick="showAnswer('answer196')">答えを見る</button>
 <p class="answer-hidden" id="answer196"><strong>Answer:</strong> Accounts and identities</p>
@@ -2181,11 +2008,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>You need to create a data loss prevention (DLP) policy. What should you use?</h3>
 <div class="choices">
-<label><input type="radio" name="q197" id="q197_opt0"> Microsoft 365 admin center</label>
-<label><input type="radio" name="q197" id="q197_opt1"> Microsoft Endpoint Manager admin center</label>
-<label><input type="radio" name="q197" id="q197_opt2"> Microsoft 365 Defender portal</label>
-<label><input type="radio" name="q197" id="q197_opt3"> Microsoft 365 Compliance center</label>
-
+<label><input id="q197_opt0" name="q197" type="radio"/> Microsoft 365 admin center</label>
+<label><input id="q197_opt1" name="q197" type="radio"/> Microsoft Endpoint Manager admin center</label>
+<label><input id="q197_opt2" name="q197" type="radio"/> Microsoft 365 Defender portal</label>
+<label><input id="q197_opt3" name="q197" type="radio"/> Microsoft 365 Compliance center</label>
 </div>
 <button onclick="showAnswer('answer197')">答えを見る</button>
 <p class="answer-hidden" id="answer197"><strong>Answer:</strong> Microsoft 365 admin center</p>
@@ -2193,11 +2019,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What is an assessment in Compliance Manager?</h3>
 <div class="choices">
-<label><input type="radio" name="q198" id="q198_opt0"> Grouping of controls from a specific regulation, standard or policy</label>
-<label><input type="radio" name="q198" id="q198_opt1"> Recommended guidance to help organizations align with their corporate standards</label>
-<label><input type="radio" name="q198" id="q198_opt2"> Dictionary of words that are not allowed in company documents</label>
-<label><input type="radio" name="q198" id="q198_opt3"> Policy initiative that includes multiple policies</label>
-
+<label><input id="q198_opt0" name="q198" type="radio"/> Grouping of controls from a specific regulation, standard or policy</label>
+<label><input id="q198_opt1" name="q198" type="radio"/> Recommended guidance to help organizations align with their corporate standards</label>
+<label><input id="q198_opt2" name="q198" type="radio"/> Dictionary of words that are not allowed in company documents</label>
+<label><input id="q198_opt3" name="q198" type="radio"/> Policy initiative that includes multiple policies</label>
 </div>
 <button onclick="showAnswer('answer198')">答えを見る</button>
 <p class="answer-hidden" id="answer198"><strong>Answer:</strong> Recommended guidance to help organizations align with their corporate standards</p>
@@ -2205,11 +2030,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>You need to keep a copy of all files in a Microsoft SharePoint site for one year, even if users delete the files from the site. What should you apply to the site?</h3>
 <div class="choices">
-<label><input type="radio" name="q199" id="q199_opt0"> Data loss prevention (DLP) policy</label>
-<label><input type="radio" name="q199" id="q199_opt1"> Retention policy</label>
-<label><input type="radio" name="q199" id="q199_opt2"> Insider risk policy</label>
-<label><input type="radio" name="q199" id="q199_opt3"> Sensitivity label policy</label>
-
+<label><input id="q199_opt0" name="q199" type="radio"/> Data loss prevention (DLP) policy</label>
+<label><input id="q199_opt1" name="q199" type="radio"/> Retention policy</label>
+<label><input id="q199_opt2" name="q199" type="radio"/> Insider risk policy</label>
+<label><input id="q199_opt3" name="q199" type="radio"/> Sensitivity label policy</label>
 </div>
 <button onclick="showAnswer('answer199')">答えを見る</button>
 <p class="answer-hidden" id="answer199"><strong>Answer:</strong> Retention policy</p>
@@ -2217,11 +2041,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What can you use to view the Microsoft Secure Score for Devices?</h3>
 <div class="choices">
-<label><input type="radio" name="q200" id="q200_opt0"> Microsoft Defender for Cloud Apps</label>
-<label><input type="radio" name="q200" id="q200_opt1"> Microsoft Defender for Endpoint</label>
-<label><input type="radio" name="q200" id="q200_opt2"> Microsoft Defender for Identity</label>
-<label><input type="radio" name="q200" id="q200_opt3"> Microsoft Defender for Office 365</label>
-
+<label><input id="q200_opt0" name="q200" type="radio"/> Microsoft Defender for Cloud Apps</label>
+<label><input id="q200_opt1" name="q200" type="radio"/> Microsoft Defender for Endpoint</label>
+<label><input id="q200_opt2" name="q200" type="radio"/> Microsoft Defender for Identity</label>
+<label><input id="q200_opt3" name="q200" type="radio"/> Microsoft Defender for Office 365</label>
 </div>
 <button onclick="showAnswer('answer200')">答えを見る</button>
 <p class="answer-hidden" id="answer200"><strong>Answer:</strong> Microsoft Defender for Endpoint</p>
@@ -2229,10 +2052,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>Match the Microsoft 365 insider risk management workflow step to the appropriate task. [...] Review and filter alerts</h3>
 <div class="choices">
-<label><input type="radio" name="q201" id="q201_opt0"> Triage</label>
-<label><input type="radio" name="q201" id="q201_opt1"> Investigate</label>
-<label><input type="radio" name="q201" id="q201_opt2"> Action</label>
-
+<label><input id="q201_opt0" name="q201" type="radio"/> Triage</label>
+<label><input id="q201_opt1" name="q201" type="radio"/> Investigate</label>
+<label><input id="q201_opt2" name="q201" type="radio"/> Action</label>
 </div>
 <button onclick="showAnswer('answer201')">答えを見る</button>
 <p class="answer-hidden" id="answer201"><strong>Answer:</strong> Triage</p>
@@ -2240,10 +2062,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>Match the Microsoft 365 insider risk management workflow step to the appropriate task. [...] Create cases in the Case dashboard</h3>
 <div class="choices">
-<label><input type="radio" name="q202" id="q202_opt0"> Triage</label>
-<label><input type="radio" name="q202" id="q202_opt1"> Investigate</label>
-<label><input type="radio" name="q202" id="q202_opt2"> Action</label>
-
+<label><input id="q202_opt0" name="q202" type="radio"/> Triage</label>
+<label><input id="q202_opt1" name="q202" type="radio"/> Investigate</label>
+<label><input id="q202_opt2" name="q202" type="radio"/> Action</label>
 </div>
 <button onclick="showAnswer('answer202')">答えを見る</button>
 <p class="answer-hidden" id="answer202"><strong>Answer:</strong> Investigate</p>
@@ -2251,10 +2072,9 @@ function showAnswer(id) {
 <div class="question">
 <h3>Match the Microsoft 365 insider risk management workflow step to the appropriate task. [...] Send a reminder of corporate policies to users</h3>
 <div class="choices">
-<label><input type="radio" name="q203" id="q203_opt0"> Triage</label>
-<label><input type="radio" name="q203" id="q203_opt1"> Investigate</label>
-<label><input type="radio" name="q203" id="q203_opt2"> Action</label>
-
+<label><input id="q203_opt0" name="q203" type="radio"/> Triage</label>
+<label><input id="q203_opt1" name="q203" type="radio"/> Investigate</label>
+<label><input id="q203_opt2" name="q203" type="radio"/> Action</label>
 </div>
 <button onclick="showAnswer('answer203')">答えを見る</button>
 <p class="answer-hidden" id="answer203"><strong>Answer:</strong> Action</p>
@@ -2262,9 +2082,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Users can apply sensitivity labels manually</h3>
 <div class="choices">
-<label><input type="radio" name="q204" id="q204_opt0"> Yes</label>
-<label><input type="radio" name="q204" id="q204_opt1"> No</label>
-
+<label><input id="q204_opt0" name="q204" type="radio"/> Yes</label>
+<label><input id="q204_opt1" name="q204" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer204')">答えを見る</button>
 <p class="answer-hidden" id="answer204"><strong>Answer:</strong> Yes</p>
@@ -2272,9 +2091,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>Multiple sensitivity labels can be applied to the same file</h3>
 <div class="choices">
-<label><input type="radio" name="q205" id="q205_opt0"> Yes</label>
-<label><input type="radio" name="q205" id="q205_opt1"> No</label>
-
+<label><input id="q205_opt0" name="q205" type="radio"/> Yes</label>
+<label><input id="q205_opt1" name="q205" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer205')">答えを見る</button>
 <p class="answer-hidden" id="answer205"><strong>Answer:</strong> No</p>
@@ -2282,9 +2100,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>A sensitivity label can apply a watermark to a Microsoft Word document</h3>
 <div class="choices">
-<label><input type="radio" name="q206" id="q206_opt0"> Yes</label>
-<label><input type="radio" name="q206" id="q206_opt1"> No</label>
-
+<label><input id="q206_opt0" name="q206" type="radio"/> Yes</label>
+<label><input id="q206_opt1" name="q206" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer206')">答えを見る</button>
 <p class="answer-hidden" id="answer206"><strong>Answer:</strong> Yes</p>
@@ -2292,9 +2109,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can use Advanced Audit in Micrdsoft 365 to view billing details</h3>
 <div class="choices">
-<label><input type="radio" name="q207" id="q207_opt0"> Yes</label>
-<label><input type="radio" name="q207" id="q207_opt1"> No</label>
-
+<label><input id="q207_opt0" name="q207" type="radio"/> Yes</label>
+<label><input id="q207_opt1" name="q207" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer207')">答えを見る</button>
 <p class="answer-hidden" id="answer207"><strong>Answer:</strong> No</p>
@@ -2302,9 +2118,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can use Advanced Auditin Microsoft 365 to view the contents of an email message</h3>
 <div class="choices">
-<label><input type="radio" name="q208" id="q208_opt0"> Yes</label>
-<label><input type="radio" name="q208" id="q208_opt1"> No</label>
-
+<label><input id="q208_opt0" name="q208" type="radio"/> Yes</label>
+<label><input id="q208_opt1" name="q208" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer208')">答えを見る</button>
 <p class="answer-hidden" id="answer208"><strong>Answer:</strong> No</p>
@@ -2312,9 +2127,8 @@ function showAnswer(id) {
 <div class="question">
 <h3>You can use Advanced Auditin Microsoft 365 to view when a user sees the search bar in Outlook on the web to search for message in a mailbox</h3>
 <div class="choices">
-<label><input type="radio" name="q209" id="q209_opt0"> Yes</label>
-<label><input type="radio" name="q209" id="q209_opt1"> No</label>
-
+<label><input id="q209_opt0" name="q209" type="radio"/> Yes</label>
+<label><input id="q209_opt1" name="q209" type="radio"/> No</label>
 </div>
 <button onclick="showAnswer('answer209')">答えを見る</button>
 <p class="answer-hidden" id="answer209"><strong>Answer:</strong> Yes</p>
@@ -2322,11 +2136,10 @@ function showAnswer(id) {
 <div class="question">
 <h3>What can you specify in Microsoft 365 sensitivity labels?</h3>
 <div class="choices">
-<label><input type="radio" name="q210" id="q210_opt0"> How long files must be preserved</label>
-<label><input type="radio" name="q210" id="q210_opt1"> When to archive an email message</label>
-<label><input type="radio" name="q210" id="q210_opt2"> Which watermark to add to files</label>
-<label><input type="radio" name="q210" id="q210_opt3"> Where to store files</label>
-
+<label><input id="q210_opt0" name="q210" type="radio"/> How long files must be preserved</label>
+<label><input id="q210_opt1" name="q210" type="radio"/> When to archive an email message</label>
+<label><input id="q210_opt2" name="q210" type="radio"/> Which watermark to add to files</label>
+<label><input id="q210_opt3" name="q210" type="radio"/> Where to store files</label>
 </div>
 <button onclick="showAnswer('answer210')">答えを見る</button>
 <p class="answer-hidden" id="answer210"><strong>Answer:</strong> Which watermark to add to files</p>
