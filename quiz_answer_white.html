@@ -9,7 +9,7 @@
   .question { margin-bottom: 2em; }
   .choices label { display: block; margin: 0.5em 0; }
   .answer-hidden { color: white; font-size: 0.9em; margin-top: 0.5em; transition: color 0.3s ease; }
-  .answer-hidden.show { color: green; }
+  
 
   html {
     font-size: 18px;
@@ -51,7 +51,6 @@
 <script>
 function showAnswer(id) {
   const answerElement = document.getElementById(id);
-  answerElement.classList.add("show");
 
   const questionDiv = answerElement.closest(".question");
   const correctAnswerText = answerElement.innerText.replace("Answer:", "").trim().replace(/\n/g, "").replace(/\./g, "").toLowerCase();
