@@ -47,34 +47,129 @@
       font-size: 1.1em;
     }
   }
+
+.question {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5em;
+  margin-bottom: 1.5em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  font-size: 1.4em;
+  margin-bottom: 1em;
+}
+
+.choices label {
+  background-color: white;
+  display: block;
+  padding: 0.8em 1em;
+  border-radius: 8px;
+  margin: 0.5em 0;
+  border: 1px solid #ddd;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.choices label:hover {
+  background-color: #e9f5ff;
+  transform: translateY(-1px);
+}
+
+button {
+  display: inline-block;
+  margin-top: 1em;
+  padding: 0.8em 1.5em;
+  font-size: 1.2em;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#score-display {
+  font-size: 1.3em;
+  margin-bottom: 1.5em;
+  padding: 1em;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 10px;
+  color: #856404;
+}
+
+.correct {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+.incorrect {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
 </style>
 <script>
 function showAnswer(id) {
   const answerElement = document.getElementById(id);
-
   const questionDiv = answerElement.closest(".question");
   const correctAnswerText = answerElement.innerText.replace("Answer:", "").trim().replace(/\n/g, "").replace(/\./g, "").toLowerCase();
 
   const inputs = questionDiv.querySelectorAll("input[type='radio'], input[type='checkbox']");
+  let isCorrect = true;
+  let answered = false;
+
   inputs.forEach(input => {
     const label = input.closest("label");
     if (!label) return;
 
     const labelText = label.innerText.replace(/\./g, "").trim().toLowerCase();
+
+    label.style.backgroundColor = "";
+    label.style.borderColor = "";
+
     if (input.checked) {
+      answered = true;
       if (correctAnswerText.includes(labelText)) {
-        label.style.color = "green";
+        label.style.backgroundColor = "#d4edda";
+        label.style.borderColor = "#c3e6cb";
       } else {
-        label.style.color = "red";
+        label.style.backgroundColor = "#f8d7da";
+        label.style.borderColor = "#f5c6cb";
+        isCorrect = false;
       }
-    } else {
-      label.style.color = "";
     }
   });
+
+  // スコア更新
+  const scoreDiv = document.getElementById("score-display");
+  let current = scoreDiv.dataset.correct ? parseInt(scoreDiv.dataset.correct) : 0;
+  let total = scoreDiv.dataset.total ? parseInt(scoreDiv.dataset.total) : 0;
+
+  if (answered && !questionDiv.dataset.answered) {
+    total += 1;
+    if (isCorrect) current += 1;
+    scoreDiv.dataset.correct = current;
+    scoreDiv.dataset.total = total;
+    scoreDiv.innerText = `正解数: ${current} / ${total}`;
+    questionDiv.dataset.answered = "true";
+
+    // 自動スクロール（次の未回答の質問へ）
+    setTimeout(() => {
+      const next = questionDiv.nextElementSibling;
+      if (next && next.classList.contains("question")) {
+        next.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 500);
+  }
 }
 </script>
 </head>
 <body>
+<div id="score-display">正解数: 0 / 0</div><h1>Microsoft セキュリティ クイズ（翻訳対応・白文字＋英語キーワード）</h1>
 <div class="question">
 <h3>Q1. Conditional access policies always enforce the user of multi-factor authentication (MFA)</h3>
 <div class="choices">
