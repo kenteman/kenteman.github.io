@@ -10,8 +10,22 @@
   .choices label { display: block; margin: 0.5em 0; }
   .answer-hidden { color: white; font-size: 0.9em; margin-top: 0.5em; transition: color 0.3s ease; }
   .answer-hidden.show { color: green; }
-</style>
 
+  html {
+    font-size: 18px;
+  }
+  button {
+    font-size: 1.2em;
+    padding: 0.8em 1.5em;
+    margin-top: 0.5em;
+  }
+  label {
+    font-size: 1.1em;
+  }
+  h3 {
+    font-size: 1.2em;
+  }
+</style>
 <script>
 function showAnswer(id) {
   const answerElement = document.getElementById(id);
@@ -38,7 +52,6 @@ function showAnswer(id) {
   });
 }
 </script>
-
 </head>
 <body>
 <h1>Microsoft セキュリティ クイズ（翻訳対応・白文字＋英語キーワード）</h1>
